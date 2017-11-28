@@ -1,4 +1,4 @@
-package za.co.wtc.modle;
+package za.co.wtc.swingy.modle;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;

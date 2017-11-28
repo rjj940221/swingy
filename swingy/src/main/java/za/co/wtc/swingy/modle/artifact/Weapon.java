@@ -1,4 +1,4 @@
-package za.co.wtc.modle.artifact;
+package za.co.wtc.swingy.modle.artifact;
 
 public class Weapon extends Artifact {
     public Weapon(int value) {

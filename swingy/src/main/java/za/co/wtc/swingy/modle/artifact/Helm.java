@@ -1,4 +1,4 @@
-package za.co.wtc.modle.artifact;
+package za.co.wtc.swingy.modle.artifact;
 
 public class Helm extends Artifact {
     public Helm(int value) {
