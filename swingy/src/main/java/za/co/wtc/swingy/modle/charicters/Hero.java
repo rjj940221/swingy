@@ -1,6 +1,8 @@
-package za.co.wtc.swingy.modle;
+package za.co.wtc.swingy.modle.charicters;
 
+import za.co.wtc.swingy.modle.Coordinate;
 import za.co.wtc.swingy.modle.artifact.Artifact;
+import za.co.wtc.swingy.modle.charicters.Charicter;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -11,7 +13,7 @@ public class Hero extends Charicter {
     protected Artifact helmet;
 
     public Hero(@NotNull String name, @NotNull String type, @Min(0) int level, @Min(0) long experience, @Min(0) int attack, @Min(0) int defense, @Min(0) int hitPoints) {
-        super(name, type, level, experience, attack, defense, hitPoints);
+        super(name, type, level, experience, attack, defense, hitPoints, new Coordinate(0,0));
     }
 
     public void increaceEXP(int exp) {
@@ -41,5 +43,25 @@ public class Hero extends Charicter {
             return weapon.getValue() + attack;
         else
             return super.getAttack();
+    }
+
+
+
+    @Override
+    public String toString() {
+        return "Hero{" +
+                       "weapon=" + weapon +
+                       ", armor=" + armor +
+                       ", helmet=" + helmet +
+                       ", name='" + name + '\'' +
+                       ", type='" + type + '\'' +
+                       ", level=" + level +
+                       ", experience=" + experience +
+                       ", attack=" + attack +
+                       ", defense=" + defense +
+                       ", hitPoints=" + hitPoints +
+                       ", coordinate=" + coordinate +
+                       ", direction=" + direction +
+                       '}';
     }
 }
