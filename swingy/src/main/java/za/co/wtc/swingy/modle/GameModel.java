@@ -25,7 +25,7 @@ public class GameModel {
 			x = (int)(Math.random() * (size + 1));
 			y = (int)(Math.random() * (size + 1));
 			System.out.println("Placed monster at " + x + " " + y);
-			monsters.add(new Monster("Fighter", (int)(Math.random() * hero.getLevel()),0,1,2,100, new Coordinate(x,y)));
+			monsters.add(new Monster("Fighter", (int)(Math.random() * hero.getLevel()),0,1,2,20, new Coordinate(x,y)));
 		}
 		oponent = null;
 	}
@@ -81,5 +81,9 @@ public class GameModel {
 			return GameState.Victory;
 		}
 		return GameState.InProgress;
+	}
+
+	public void gameCompletionBonus(){
+		hero.increaseEXP(10);
 	}
 }

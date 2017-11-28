@@ -16,7 +16,7 @@ public class Hero extends Charicter {
         super(name, type, level, experience, attack, defense, hitPoints, new Coordinate(0,0));
     }
 
-    public void increaceEXP(int exp) {
+    public void increaseEXP(long exp) {
         experience += exp;
     }
 

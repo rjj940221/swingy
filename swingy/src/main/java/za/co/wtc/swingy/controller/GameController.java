@@ -2,6 +2,7 @@ package za.co.wtc.swingy.controller;
 
 import za.co.wtc.swingy.modle.GameModel;
 import za.co.wtc.swingy.modle.GameState;
+import za.co.wtc.swingy.modle.charicters.Hero;
 import za.co.wtc.swingy.view.GameView;
 
 public class GameController {
@@ -29,11 +30,16 @@ public class GameController {
 		}
 		if (gameModel.getGameState() == GameState.Victory){
 			gameView.victory();
+			gameModel.gameCompletionBonus();
 			return GameState.Victory;
 		}
 		else{
 			gameView.defeat();
 			return GameState.Defeat;
 		}
+	}
+
+	public Hero getHero(){
+		return gameModel.getHero();
 	}
 }
