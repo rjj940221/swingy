@@ -19,8 +19,8 @@ public class LoadCreatCLI implements LoadCreatView {
 	public boolean loadOrCreate() {
 		String responce;
 		do {
-			responce = console.readLine("Do you want to load an existing hero?[y/n]: ");
-		} while (!responce.equalsIgnoreCase("y") && !responce.equalsIgnoreCase("n"));
-		return (responce.equalsIgnoreCase("y"));
+			responce = console.readLine("Do you want to load an existing hero or create a new one?[load/create]: ");
+		} while (!responce.equalsIgnoreCase("load") && !responce.equalsIgnoreCase("create"));
+		return (responce.equalsIgnoreCase("create"));
 	}
 }

@@ -1,9 +1,12 @@
 package za.co.wtc.swingy.store;
 
+import za.co.wtc.swingy.modle.Coordinate;
 import za.co.wtc.swingy.modle.artifact.Artifact;
 import za.co.wtc.swingy.modle.artifact.Weapon;
+import za.co.wtc.swingy.modle.charicters.CharacterType;
 import za.co.wtc.swingy.modle.charicters.Hero;
 
+import javax.validation.constraints.Null;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -67,7 +70,16 @@ public class SqlStore {
 			stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 			while (rs.next()) {
-
+				re.add(new Hero(rs.getString("name"),
+						               CharacterType.valueOf(rs.getString("type")),
+						               rs.getInt("level"),
+						               rs.getInt("experience"),
+						               rs.getInt("attack"),
+						               rs.getInt("defence"),
+						               rs.getInt("hit_points"),
+						               new Coordinate(0,0),
+						               null,null,null,
+						               rs.getInt("id")));
 			}
 		} catch (SQLException e) {
 			System.err.println("Data base failure.");
@@ -80,22 +92,36 @@ public class SqlStore {
 		return re;
 	}
 
-	public static void addHero(Connection con, Hero hero) throws SQLException {
-		PreparedStatement stmt = null;
-		String query = "INSERT INTO HERO (name, level, experience) VALUES (?, ?, ?)";
+	public static int addHero(Connection con, Hero hero) throws SQLException {
+		PreparedStatement stmtHero = null;
+		Statement getId = null;
+		String insertHero = "INSERT INTO swingy.HEROS (name, type, level, experience, attack, defence, hit_points) " +
+				               "VALUES (?, ?, ?, ?, ?, ?, ?)";
+		String lastInsert = "SELECT LAST_INSERT_ID()";
 		try {
-			stmt = con.prepareStatement(query);
-			stmt.setString(1, hero.getName());
-			ResultSet rs = stmt.executeQuery(query);
+			stmtHero = con.prepareStatement(insertHero);
+			stmtHero.setString(1, hero.getName());
+			stmtHero.setString(2, hero.getType().toString());
+			stmtHero.setInt(3, hero.getLevel());
+			stmtHero.setInt(4, (int)hero.getExperience());
+			stmtHero.setInt(5, hero.getAttack());
+			stmtHero.setInt(6, hero.getDefense());
+			stmtHero.setInt(7, hero.getHitPoints());
+			getId = con.createStatement();
+			ResultSet inRs = stmtHero.executeQuery();
+			ResultSet idRs = getId.executeQuery(lastInsert);
+			if (idRs.next())
+				return idRs.getInt(0);
 
 		} catch (SQLException e) {
 			System.err.println("Data base failure.");
 			System.exit(1);
 		} finally {
-			if (stmt != null) {
-				stmt.close();
+			if (stmtHero != null) {
+				stmtHero.close();
 			}
 		}
+		return -1;
 	}
 
 	public static void updateHero(Connection con, Hero hero) throws SQLException {
