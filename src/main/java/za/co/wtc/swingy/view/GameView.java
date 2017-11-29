@@ -17,4 +17,6 @@ public interface GameView {
 	void fightResult(Hero hero, Monster monster);
 
 	boolean nextMap();
+
+	void displayHero(Hero hero);
 }

@@ -65,10 +65,13 @@ public class GameCLI implements GameView {
 
 	@Override
 	public void fightResult(Hero hero, Monster monster) {
-		console.printf("Hero {Name: %s, Defence: %d, Hit Points: %d}\n",
+		console.printf("FIGHT RESULT:\n");
+		console.printf("\tHero {Name: %s, Defence: %d, Hit Points: %d}\n",
 				hero.getName(), hero.getDefense(), hero.getHitPoints());
-		console.printf("Opponent {Name: %s, Defence: %d, Hit Points: %d}\n",
-				monster.getName(), monster.getDefense(), monster.getHitPoints());
+		if (monster != null) {
+			console.printf("\tOpponent {Name: %s, Defence: %d, Hit Points: %d}\n",
+					monster.getName(), monster.getDefense(), monster.getHitPoints());
+		}
 	}
 
 	@Override
@@ -78,5 +81,12 @@ public class GameCLI implements GameView {
 			responce = console.readLine("Do you want to load the next map?[y/n]: ");
 		} while (!responce.equalsIgnoreCase("y") && !responce.equalsIgnoreCase("n"));
 		return (responce.equalsIgnoreCase("y"));
+	}
+
+	@Override
+	public void displayHero(Hero hero) {
+		console.printf("Hero {Name: %s, Class: %s, Level: %d, Experience: %d Attack: %d, Defence: %d, Hit Points: %d}\n",
+				hero.getName(), hero.getType(), hero.getLevel(), hero.getExperience(), hero.getAttack(), hero.getDefense(),
+				hero.getHitPoints());
 	}
 }

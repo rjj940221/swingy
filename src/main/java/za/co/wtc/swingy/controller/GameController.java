@@ -21,9 +21,11 @@ public class GameController {
 			}else {
 				if(gameView.fight(gameModel.getHero(), gameModel.getOponent())) {
 					gameModel.fight();
+					gameView.fightResult(gameModel.getHero(), gameModel.getOponent());
 				}else {
 					if (!gameModel.flee()){
 						gameModel.fight();
+						gameView.fightResult(gameModel.getHero(), gameModel.getOponent());
 					}
 				}
 			}
@@ -31,6 +33,7 @@ public class GameController {
 		if (gameModel.getGameState() == GameState.Victory){
 			gameView.victory();
 			gameModel.gameCompletionBonus();
+			gameView.displayHero(gameModel.getHero());
 			if (gameView.nextMap()) {
 				gameModel.setLevel();
 				return  runGame();

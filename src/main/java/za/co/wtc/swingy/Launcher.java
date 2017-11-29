@@ -14,7 +14,5 @@ public class Launcher {
 		GameController gameController = new GameController(view, model);
 
 		gameController.runGame();
-		hero = gameController.getHero();
-		System.out.println(hero);
 	}
 }
