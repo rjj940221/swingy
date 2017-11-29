@@ -11,10 +11,16 @@ public abstract class Artifact {
     @Min(0)
     private int maxValue;
 
-    Artifact(ArtifactType type, int value) {
+    public Artifact(@NotNull ArtifactType type, @Min(0) int value) {
         this.type = type;
         this.value = value;
         maxValue = value;
+    }
+
+    public Artifact(@NotNull ArtifactType type, @Min(0) int value, @Min(0) int maxValue) {
+        this.type = type;
+        this.value = value;
+        this.maxValue = maxValue;
     }
 
     public ArtifactType getType() {

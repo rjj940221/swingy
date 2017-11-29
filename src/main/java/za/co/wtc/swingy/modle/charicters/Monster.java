@@ -9,7 +9,7 @@ import java.util.Random;
 public class Monster extends Charicter {
 	private static final String[] names = {"Borge", "Zignith", "Herrid"};
 
-	public Monster(@NotNull String type,
+	public Monster(@NotNull CharacterType type,
 	               @Min(0) int level,
 	               @Min(0) long experience,
 	               @Min(0) int attack,
@@ -18,7 +18,7 @@ public class Monster extends Charicter {
 		super(names[(int) (Math.random() * names.length)], type, level, experience, attack, defense, hitPoints, new Coordinate(0, 0));
 	}
 
-	public Monster(@NotNull String type,
+	public Monster(@NotNull CharacterType type,
 	               @Min(0) int level,
 	               @Min(0) long experience,
 	               @Min(0) int attack,

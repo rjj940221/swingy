@@ -10,20 +10,20 @@ import javax.validation.constraints.NotNull;
 public class Hero extends Charicter {
 	private Artifact weapon;
 	private Artifact armor;
-	protected Artifact helmet;
+	private Artifact helmet;
 	@Min(0)
 	protected long id;
 
-	public Hero(@NotNull String name, @NotNull String type, @Min(0) int level, @Min(0) long experience, @Min(0) int attack, @Min(0) int defense, @Min(0) int hitPoints) {
+	public Hero(@NotNull String name, @NotNull CharacterType type, @Min(0) int level, @Min(0) long experience, @Min(0) int attack, @Min(0) int defense, @Min(0) int hitPoints) {
 		super(name, type, level, experience, attack, defense, hitPoints, new Coordinate(0, 0));
 	}
 
-	public Hero(@NotNull String name, @NotNull String type, @Min(0) int level, @Min(0) long experience, @Min(0) int attack, @Min(0) int defense, @Min(0) int hitPoints, @NotNull Coordinate coordinate, @Min(0) long id) {
+	public Hero(@NotNull String name, @NotNull CharacterType type, @Min(0) int level, @Min(0) long experience, @Min(0) int attack, @Min(0) int defense, @Min(0) int hitPoints, @NotNull Coordinate coordinate, @Min(0) long id) {
 		super(name, type, level, experience, attack, defense, hitPoints, coordinate);
 		this.id = id;
 	}
 
-	public Hero(@NotNull String name, @NotNull String type, @Min(0) int level, @Min(0) long experience, @Min(0) int attack, @Min(0) int defense, @Min(0) int hitPoints, @NotNull Coordinate coordinate, Artifact weapon, Artifact armor, Artifact helmet, @Min(0) long id) {
+	public Hero(@NotNull String name, @NotNull CharacterType type, @Min(0) int level, @Min(0) long experience, @Min(0) int attack, @Min(0) int defense, @Min(0) int hitPoints, @NotNull Coordinate coordinate, Artifact weapon, Artifact armor, Artifact helmet, @Min(0) long id) {
 		super(name, type, level, experience, attack, defense, hitPoints, coordinate);
 		this.weapon = weapon;
 		this.armor = armor;
@@ -38,6 +38,22 @@ public class Hero extends Charicter {
 		if (experience >= testEx) {
 			level += 1;
 		}
+	}
+
+	public long getID() {
+		return id;
+	}
+
+	public Artifact getWeapon() {
+		return weapon;
+	}
+
+	public Artifact getArmor() {
+		return armor;
+	}
+
+	public Artifact getHelmet() {
+		return helmet;
 	}
 
 	@Override

@@ -1,5 +1,6 @@
 package za.co.wtc.swingy.modle;
 
+import za.co.wtc.swingy.modle.charicters.CharacterType;
 import za.co.wtc.swingy.modle.charicters.Hero;
 import za.co.wtc.swingy.modle.charicters.Monster;
 
@@ -30,7 +31,7 @@ public class GameModel {
 			x = (int)(Math.random() * (size + 1));
 			y = (int)(Math.random() * (size + 1));
 			System.out.println("Placed monster at " + x + " " + y);
-			monsters.add(new Monster("Fighter", (int)(Math.random() * hero.getLevel()),0,1,
+			monsters.add(new Monster(CharacterType.ORC, (int)(Math.random() * hero.getLevel()),0,1,
 					2,20, new Coordinate(x,y)));
 		}
 		oponent = null;

@@ -10,7 +10,7 @@ public abstract class Charicter {
 	@NotNull
 	protected String name;
 	@NotNull
-	protected String type;
+	protected CharacterType type;
 	@Min(0)
 	protected int level;
 	@Min(0)
@@ -30,7 +30,7 @@ public abstract class Charicter {
 		return name;
 	}
 
-	public String getType() {
+	public CharacterType getType() {
 		return type;
 	}
 
@@ -85,7 +85,7 @@ public abstract class Charicter {
 		this.coordinate = coordinate;
 	}
 
-	Charicter(@NotNull String name, @NotNull String type, @Min(0) int level, @Min(0) long experience, @Min(0) int attack, @Min(0) int defense, @Min(0) int hitPoints, @NotNull Coordinate coordinate) {
+	Charicter(@NotNull String name, @NotNull CharacterType type, @Min(0) int level, @Min(0) long experience, @Min(0) int attack, @Min(0) int defense, @Min(0) int hitPoints, @NotNull Coordinate coordinate) {
 		this.name = name;
 		this.type = type;
 		this.level = level;
