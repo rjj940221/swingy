@@ -32,8 +32,13 @@ public class Launcher {
 			} else {
 				hero = new HeroSelectorController(new HeroSelectCLI(), herose).selectHero();
 			}
+			if (hero == null)
+			{
+				System.err.print("Failed to load hero");
+				System.exit(1);
+			}
 			System.out.println(hero);
-			GameController gameController = new GameController(new GameCLI(), new GameModel(hero););
+			GameController gameController = new GameController(new GameCLI(), new GameModel(hero));
 			gameController.runGame();
 		} catch (SQLException e) {
 			System.err.println("Database crash");

@@ -30,6 +30,7 @@ public class HeroSelectCLI implements HeroSelectView {
 			res = console.readLine("Enter the index of the hero you want to use: ");
 			try {
 				resIdx = Integer.parseInt(res);
+				return heros.get(resIdx - 1);
 			}catch(Exception e){
 				resIdx = -1;
 			}
