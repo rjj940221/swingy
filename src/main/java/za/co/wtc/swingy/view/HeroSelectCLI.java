@@ -5,7 +5,7 @@ import za.co.wtc.swingy.modle.charicters.Hero;
 import java.io.Console;
 import java.util.List;
 
-public class HeroSelectCLI implements HeroSelectView {
+public class HeroSelectCLI {
 	private Console console;
 
 	public HeroSelectCLI() {
@@ -13,12 +13,11 @@ public class HeroSelectCLI implements HeroSelectView {
 		if (console == null) {
 			System.err.println("No console.");
 			System.exit(1);
-		} else {
+		} /*else {
 			console.printf("Yes console.\n");
-		}
+		}*/
 	}
 
-	@Override
 	public Hero selectHero(List<Hero> heros) {
 		int index = 1;
 		String res;

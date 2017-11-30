@@ -6,7 +6,7 @@ import za.co.wtc.swingy.modle.charicters.Monster;
 
 import java.io.Console;
 
-public class GameCLI implements GameView {
+public class GameCLI {
 	private Console console;
 
 	public GameCLI() {
@@ -14,9 +14,9 @@ public class GameCLI implements GameView {
 		if (console == null) {
 			System.err.println("No console.");
 			System.exit(1);
-		} else {
+		} /*else {
 			console.printf("Yes console.\n");
-		}
+		}*/
 	}
 
 	public boolean fight(Hero hero, Monster monster) {
@@ -53,17 +53,14 @@ public class GameCLI implements GameView {
 		}
 	}
 
-	@Override
 	public void victory() {
 		console.readLine("VICTORY: ");
 	}
 
-	@Override
 	public void defeat() {
 		console.readLine("DEFEAT: ");
 	}
 
-	@Override
 	public void fightResult(Hero hero, Monster monster) {
 		console.printf("FIGHT RESULT:\n");
 		console.printf("\tHero {Name: %s, Defence: %d, Hit Points: %d}\n",
@@ -74,7 +71,6 @@ public class GameCLI implements GameView {
 		}
 	}
 
-	@Override
 	public boolean nextMap() {
 		String responce;
 		do {
@@ -83,7 +79,6 @@ public class GameCLI implements GameView {
 		return (responce.equalsIgnoreCase("y"));
 	}
 
-	@Override
 	public void displayHero(Hero hero) {
 		console.printf("Hero {Name: %s, Class: %s, Level: %d, Experience: %d Attack: %d, Defence: %d, Hit Points: %d}\n",
 				hero.getName(), hero.getType(), hero.getLevel(), hero.getExperience(), hero.getAttack(), hero.getDefense(),

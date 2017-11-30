@@ -2,20 +2,19 @@ package za.co.wtc.swingy.view;
 
 import java.io.Console;
 
-public class LoadCreatCLI implements LoadCreatView {
+public class LoadCreateCLI {
 	private Console console;
 
-	public LoadCreatCLI() {
+	public LoadCreateCLI() {
 		console = System.console();
 		if (console == null) {
 			System.err.println("No console.");
 			System.exit(1);
-		} else {
+		} /*else {
 			console.printf("Yes console.\n");
-		}
+		}*/
 	}
 
-	@Override
 	public boolean loadOrCreate() {
 		String responce;
 		do {

@@ -3,13 +3,13 @@ package za.co.wtc.swingy.controller;
 import za.co.wtc.swingy.modle.GameModel;
 import za.co.wtc.swingy.modle.GameState;
 import za.co.wtc.swingy.modle.charicters.Hero;
-import za.co.wtc.swingy.view.GameView;
+import za.co.wtc.swingy.view.GameCLI;
 
-public class GameController {
-	private GameView gameView;
+public class GameControllerCLI {
+	private GameCLI gameView;
 	private GameModel gameModel;
 
-	public GameController(GameView gameView, GameModel gameModel) {
+	public GameControllerCLI(GameCLI gameView, GameModel gameModel) {
 		this.gameView = gameView;
 		this.gameModel = gameModel;
 	}
@@ -48,10 +48,6 @@ public class GameController {
 			}
 			return GameState.Defeat;
 		}
-	}
-
-	public void loadLevel(){
-
 	}
 
 	public Hero getHero(){

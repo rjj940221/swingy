@@ -1,47 +1,85 @@
 package za.co.wtc.swingy;
 
-import za.co.wtc.swingy.controller.GameController;
-import za.co.wtc.swingy.controller.HeroSelectorController;
+import za.co.wtc.swingy.controller.*;
 import za.co.wtc.swingy.modle.GameModel;
 import za.co.wtc.swingy.modle.charicters.CharacterType;
 import za.co.wtc.swingy.modle.charicters.Hero;
 import za.co.wtc.swingy.store.SqlStore;
-import za.co.wtc.swingy.view.GameCLI;
-import za.co.wtc.swingy.view.HeroSelectCLI;
-import za.co.wtc.swingy.view.LoadCreatCLI;
-import za.co.wtc.swingy.view.LoadCreatView;
+import za.co.wtc.swingy.view.*;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
+
 public class Launcher {
-	public static void main(String[] args) {
+
+
+	private static void cli() throws SQLException {
+		Connection con = null;
 		try {
-			Connection con = SqlStore.getConnection();
-			List<Hero> herose = SqlStore.listHerose(con);
-			Hero hero = null;
-			boolean creat = true;
-			if (!herose.isEmpty()) {
-				LoadCreatView loadCreat = new LoadCreatCLI();
-				creat = loadCreat.loadOrCreate();
+			con = SqlStore.getConnection();
+			List<Hero> heroes = SqlStore.listHerose(con);
+			Hero hero;
+			boolean create = true;
+			if (!heroes.isEmpty()) {
+				LoadCreateControllerCLI loadCreate = new LoadCreateControllerCLI(new LoadCreateCLI());
+				create = loadCreate.create();
 			}
-			if (creat) {
-				//todo: gethero from create controller
-				hero = new Hero("Roo", CharacterType.HUMAN,0,0,10,2,20);
+			if (create) {
+				hero = new HeroCreateControllerCLI(new HeroCreateCLI()).getNewHero();
+				int id = SqlStore.addHero(con, hero);
+				hero.setId(id);
 			} else {
-				hero = new HeroSelectorController(new HeroSelectCLI(), herose).selectHero();
+				hero = new HeroSelectorControllerCLI(new HeroSelectCLI(), heroes).selectHero();
 			}
-			if (hero == null)
-			{
+			if (hero == null) {
 				System.err.print("Failed to load hero");
 				System.exit(1);
 			}
-			System.out.println(hero);
-			GameController gameController = new GameController(new GameCLI(), new GameModel(hero));
-			gameController.runGame();
+			GameControllerCLI gameControllerCLI = new GameControllerCLI(new GameCLI(), new GameModel(hero));
+			gameControllerCLI.runGame();
 		} catch (SQLException e) {
 			System.err.println("Database crash");
+		} finally {
+			if (con != null) {
+				con.close();
+			}
+		}
+	}
+
+	private static void gui() throws SQLException {
+		Connection con = null;
+		try {
+			con = SqlStore.getConnection();
+			List<Hero> heroes = SqlStore.listHerose(con);
+			Hero hero;
+			boolean create = true;
+			if (!heroes.isEmpty()) {
+				new LoadCreateControllerGUI(new LoadCreateGUI());
+			}
+		} catch (SQLException e) {
+			System.err.println("Database crash");
+		} finally {
+			if (con != null) {
+				con.close();
+			}
+		}
+	}
+
+	public static void main(String[] args) {
+		if (args.length == 1) {
+			try {
+				if (args[0].equalsIgnoreCase("console")) {
+
+					cli();
+
+				} else if (args[0].equalsIgnoreCase("gui")) {
+					gui();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 
 	}

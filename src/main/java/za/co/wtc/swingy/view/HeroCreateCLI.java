@@ -1,8 +1,11 @@
 package za.co.wtc.swingy.view;
 
-import java.io.Console;
+import za.co.wtc.swingy.modle.charicters.CharacterType;
 
-public class HeroCreateCLI implements HeroCreateView{
+import java.io.Console;
+import java.util.List;
+
+public class HeroCreateCLI{
 	private Console console;
 
 	public HeroCreateCLI() {
@@ -10,13 +13,11 @@ public class HeroCreateCLI implements HeroCreateView{
 		if (console == null) {
 			System.err.println("No console.");
 			System.exit(1);
-		} else {
+		}/* else {
 			console.printf("Yes console.\n");
-		}
+		}*/
 	}
 
-
-	@Override
 	public String getHeroName() {
 		String responce;
 		do {
@@ -25,9 +26,23 @@ public class HeroCreateCLI implements HeroCreateView{
 		return (responce);
 	}
 
-	@Override
-	public String GetHeroClass() {
-		console.printf("Your hero is a heavy\n");
-		return "Heavy";
+	public String getHeroClass() {
+		List<String> options = CharacterType.getHero();
+		int idx = 1;
+		String res;
+		int resIdx;
+
+		for (String opt : options) {
+			console.printf("%d %s\n", idx++, opt);
+		}
+		do{
+			res = console.readLine("Enter the index of the hero you want to use: ");
+			try {
+				resIdx = Integer.parseInt(res);
+			}catch(Exception e){
+				resIdx = -1;
+			}
+		}while(resIdx < 1 || resIdx > options.size());
+		return options.get(resIdx - 1).toString();
 	}
 }

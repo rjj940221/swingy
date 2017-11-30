@@ -12,11 +12,11 @@ public enum CharacterType {
 		GOBLIN,
 		TROLL;
 
-	public List<CharacterType> getHero(){
-			return new ArrayList<CharacterType>(Arrays.asList(HUMAN, ELF, DWARF));
+	public static ArrayList<String> getHero(){
+			return new ArrayList<String>(Arrays.asList("HUMAN", "ELF", "DWARF"));
 	}
 
-	public  List<CharacterType> getEnemy(){
-		return new ArrayList<CharacterType>(Arrays.asList(ORC, GOBLIN, TROLL));
+	public  static List<String> getEnemy(){
+		return new ArrayList<String>(Arrays.asList("ORC", "GOBLIN", "TROLL"));
 	}
 }

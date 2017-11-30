@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Properties;
 
 public class SqlStore {
-	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
+	private static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
 	private static final String DB_URL = "jdbc:mysql://localhost/swingy";
 
 	private static final String USER = "java";
@@ -31,7 +31,7 @@ public class SqlStore {
 		return null;
 	}
 
-	public static Artifact selectHerose(Connection con, int artifactID)
+	public static Artifact selectArtifact(Connection con, int artifactID)
 			throws SQLException {
 
 		PreparedStatement stmt = null;
@@ -97,7 +97,7 @@ public class SqlStore {
 		Statement getId = null;
 		String insertHero = "INSERT INTO swingy.HEROS (name, type, level, experience, attack, defence, hit_points) " +
 				               "VALUES (?, ?, ?, ?, ?, ?, ?)";
-		String lastInsert = "SELECT LAST_INSERT_ID()";
+		String lastInsert = "SELECT LAST_INSERT_ID() AS id;";
 		try {
 			stmtHero = con.prepareStatement(insertHero);
 			stmtHero.setString(1, hero.getName());
@@ -108,13 +108,16 @@ public class SqlStore {
 			stmtHero.setInt(6, hero.getDefense());
 			stmtHero.setInt(7, hero.getHitPoints());
 			getId = con.createStatement();
-			ResultSet inRs = stmtHero.executeQuery();
+			System.out.println(stmtHero.toString());
+			int insert = stmtHero.executeUpdate();
+			System.out.println(insert + " row's");
 			ResultSet idRs = getId.executeQuery(lastInsert);
 			if (idRs.next())
-				return idRs.getInt(0);
+				return idRs.getInt("id");
 
 		} catch (SQLException e) {
 			System.err.println("Data base failure.");
+			e.printStackTrace();
 			System.exit(1);
 		} finally {
 			if (stmtHero != null) {

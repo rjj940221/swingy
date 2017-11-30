@@ -65,6 +65,10 @@ public class Hero extends Charicter {
 		}
 	}
 
+	public void setId(long id) {
+		this.id = id;
+	}
+
 	public long getID() {
 		return id;
 	}
@@ -110,18 +114,19 @@ public class Hero extends Charicter {
 	@Override
 	public String toString() {
 		return "Hero{" +
-				       "weapon=" + weapon +
-				       ", armor=" + armor +
-				       ", helmet=" + helmet +
-				       ", name='" + name + '\'' +
-				       ", type='" + type + '\'' +
-				       ", level=" + level +
-				       ", experience=" + experience +
-				       ", attack=" + attack +
-				       ", defense=" + defense +
-				       ", hitPoints=" + hitPoints +
-				       ", coordinate=" + coordinate +
-				       ", direction=" + direction +
-				       '}';
+				"weapon=" + weapon +
+				", armor=" + armor +
+				", helmet=" + helmet +
+				", id=" + id +
+				", name='" + name + '\'' +
+				", type=" + type +
+				", level=" + level +
+				", experience=" + experience +
+				", attack=" + attack +
+				", defense=" + defense +
+				", hitPoints=" + hitPoints +
+				", coordinate=" + coordinate +
+				", direction=" + direction +
+				'}';
 	}
 }
