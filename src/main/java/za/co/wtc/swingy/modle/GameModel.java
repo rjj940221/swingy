@@ -13,6 +13,7 @@ public class GameModel {
 	private Hero hero;
 	private List<Monster> monsters = new ArrayList<>();
 	private Monster oponent;
+	private FightState lastfight;
 	private int size;
 
 	public GameModel(Hero hero) {
@@ -52,6 +53,12 @@ public class GameModel {
 				return false;
 			}
 		}
+		if (hero.getCoordinate().getX() < 0 ||
+				hero.getCoordinate().getX() > size ||
+				hero.getCoordinate().getY() < 0||
+				hero.getCoordinate().getY() > size){
+			return false;
+		}
 		return true;
 	}
 
@@ -67,15 +74,20 @@ public class GameModel {
 		return false;
 	}
 
-	public void fight() {
+	public FightState fight() {
 		if (oponent != null) {
 			oponent.takeDamage(hero.getAttack());
 			hero.takeDamage(oponent.getAttack());
 			if(oponent.getHitPoints() == 0) {
 				monsters.remove(oponent);
 				oponent = null;
+				return FightState.VICTORY;
 			}
 		}
+		if(hero.getHitPoints() == 0){
+			return FightState.DEFEAT;
+		}
+		return FightState.INCOMBAT;
 	}
 
 	public GameState getGameState() {

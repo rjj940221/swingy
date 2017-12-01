@@ -5,9 +5,10 @@
  */
 package za.co.wtc.swingy.view;
 
-import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import za.co.wtc.swingy.modle.charicters.CharacterType;
+
+import java.awt.event.ActionListener;
 
 /**
  *
@@ -29,7 +30,7 @@ public class HeroCreateGUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
+        btnCreate = new javax.swing.JButton();
         lblName = new javax.swing.JLabel();
         lblClass = new javax.swing.JLabel();
         txfName = new javax.swing.JTextField();
@@ -37,7 +38,7 @@ public class HeroCreateGUI extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
-        jButton1.setText("Create");
+        btnCreate.setText("Create");
 
         lblName.setText("Hero Name");
 
@@ -59,7 +60,7 @@ public class HeroCreateGUI extends javax.swing.JFrame {
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(157, 157, 157)
-                .addComponent(jButton1)
+                .addComponent(btnCreate)
                 .addContainerGap(183, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -74,17 +75,28 @@ public class HeroCreateGUI extends javax.swing.JFrame {
                     .addComponent(lblClass)
                     .addComponent(cmbClass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
+                .addComponent(btnCreate)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+	public String getHeroName() {
+		return txfName.getText();
+	}
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+	public String getHeroClass(){
+    	return cmbClass.getSelectedItem().toString();
+	}
+
+	public void addCreateListner (ActionListener listner){
+		btnCreate.addActionListener(listner);
+	}
+
+	// Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> cmbClass;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnCreate;
     private javax.swing.JLabel lblClass;
     private javax.swing.JLabel lblName;
     private javax.swing.JTextField txfName;
