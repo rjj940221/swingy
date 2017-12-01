@@ -1,10 +1,10 @@
-package za.co.wtc.swingy.controller;
+package za.co.wtc.swingy.controller.gui;
 
 import za.co.wtc.swingy.modle.GameModel;
 import za.co.wtc.swingy.modle.charicters.Hero;
 import za.co.wtc.swingy.store.SqlStore;
-import za.co.wtc.swingy.view.GameGUI;
-import za.co.wtc.swingy.view.HeroSelectGUI;
+import za.co.wtc.swingy.view.gui.GameGUI;
+import za.co.wtc.swingy.view.gui.HeroSelectGUI;
 
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -44,6 +44,7 @@ public class HeroSelectControllerGUI {
 		public void actionPerformed(ActionEvent actionEvent) {
 			hero = view.getSelected();
 			new GameControllerGUI(new GameModel(hero), new GameGUI());
+			view.setVisible(false);
 		}
 	}
 }

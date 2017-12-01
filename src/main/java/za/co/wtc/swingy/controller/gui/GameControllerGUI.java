@@ -1,10 +1,10 @@
-package za.co.wtc.swingy.controller;
+package za.co.wtc.swingy.controller.gui;
 
 import za.co.wtc.swingy.modle.Direction;
 import za.co.wtc.swingy.modle.FightState;
 import za.co.wtc.swingy.modle.GameModel;
 import za.co.wtc.swingy.modle.GameState;
-import za.co.wtc.swingy.view.GameGUI;
+import za.co.wtc.swingy.view.gui.GameGUI;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

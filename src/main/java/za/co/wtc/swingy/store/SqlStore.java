@@ -4,7 +4,9 @@ import za.co.wtc.swingy.modle.Coordinate;
 import za.co.wtc.swingy.modle.artifact.Artifact;
 import za.co.wtc.swingy.modle.artifact.Weapon;
 import za.co.wtc.swingy.modle.charicters.CharacterType;
+import za.co.wtc.swingy.modle.charicters.CharicterFactory;
 import za.co.wtc.swingy.modle.charicters.Hero;
+import za.co.wtc.swingy.modle.charicters.Human;
 
 import javax.validation.constraints.Null;
 import java.sql.*;
@@ -70,16 +72,15 @@ public class SqlStore {
 			stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 			while (rs.next()) {
-				re.add(new Hero(rs.getString("name"),
-						               CharacterType.valueOf(rs.getString("type")),
-						               rs.getInt("level"),
-						               rs.getInt("experience"),
-						               rs.getInt("attack"),
-						               rs.getInt("defence"),
-						               rs.getInt("hit_points"),
-						               new Coordinate(0,0),
-						               null,null,null,
-						               rs.getInt("id")));
+				re.add(CharicterFactory.creatHero(CharacterType.valueOf(rs.getString("type")),
+						rs.getString("name"),
+						rs.getInt("level"),
+						rs.getInt("experience"),
+						rs.getInt("attack"),
+						rs.getInt("defence"),
+						rs.getInt("hit_points"),
+						null, null, null,
+						rs.getInt("id")));
 			}
 		} catch (SQLException e) {
 			System.err.println("Data base failure.");
@@ -96,14 +97,14 @@ public class SqlStore {
 		PreparedStatement stmtHero = null;
 		Statement getId = null;
 		String insertHero = "INSERT INTO swingy.HEROS (name, type, level, experience, attack, defence, hit_points) " +
-				               "VALUES (?, ?, ?, ?, ?, ?, ?)";
+				"VALUES (?, ?, ?, ?, ?, ?, ?)";
 		String lastInsert = "SELECT LAST_INSERT_ID() AS id;";
 		try {
 			stmtHero = con.prepareStatement(insertHero);
 			stmtHero.setString(1, hero.getName());
 			stmtHero.setString(2, hero.getType().toString());
 			stmtHero.setInt(3, hero.getLevel());
-			stmtHero.setInt(4, (int)hero.getExperience());
+			stmtHero.setInt(4, (int) hero.getExperience());
 			stmtHero.setInt(5, hero.getAttack());
 			stmtHero.setInt(6, hero.getDefense());
 			stmtHero.setInt(7, hero.getHitPoints());

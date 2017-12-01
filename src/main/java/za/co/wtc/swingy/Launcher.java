@@ -1,11 +1,13 @@
 package za.co.wtc.swingy;
 
 import za.co.wtc.swingy.controller.*;
+import za.co.wtc.swingy.controller.gui.LoadCreateControllerGUI;
+import za.co.wtc.swingy.controller.gui.WindowController;
 import za.co.wtc.swingy.modle.GameModel;
-import za.co.wtc.swingy.modle.charicters.CharacterType;
 import za.co.wtc.swingy.modle.charicters.Hero;
 import za.co.wtc.swingy.store.SqlStore;
 import za.co.wtc.swingy.view.*;
+import za.co.wtc.swingy.view.gui.LoadCreateGUI;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -53,10 +55,8 @@ public class Launcher {
 		try {
 			con = SqlStore.getConnection();
 			List<Hero> heroes = SqlStore.listHerose(con);
-			Hero hero;
-			boolean create = true;
 			if (!heroes.isEmpty()) {
-				new LoadCreateControllerGUI(new LoadCreateGUI());
+				WindowController.getIncetance().getLoadCreateController().displayWindow();
 			}
 		} catch (SQLException e) {
 			System.err.println("Database crash");

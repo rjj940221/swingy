@@ -17,6 +17,6 @@ public enum CharacterType {
 	}
 
 	public  static List<String> getEnemy(){
-		return new ArrayList<String>(Arrays.asList("ORC", "GOBLIN", "TROLL"));
+		return new ArrayList<String>(Arrays.asList("Orc", "GOBLIN", "TROLL"));
 	}
 }

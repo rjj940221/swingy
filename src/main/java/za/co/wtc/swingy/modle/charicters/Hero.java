@@ -7,11 +7,10 @@ import za.co.wtc.swingy.modle.charicters.Charicter;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
-public class Hero extends Charicter {
+public abstract class Hero extends Charicter {
 	private Artifact weapon;
 	private Artifact armor;
 	private Artifact helmet;
-	@Min(0)
 	protected long id;
 
 	public Hero(@NotNull String name,
@@ -22,6 +21,10 @@ public class Hero extends Charicter {
 	            @Min(0) int defense,
 	            @Min(0) int hitPoints) {
 		super(name, type, level, experience, attack, defense, hitPoints, new Coordinate(0, 0));
+		armor = null;
+		weapon = null;
+		helmet = null;
+		id = -1;
 	}
 
 	public Hero(@NotNull String name,
@@ -31,10 +34,12 @@ public class Hero extends Charicter {
 	            @Min(0) int attack,
 	            @Min(0) int defense,
 	            @Min(0) int hitPoints,
-	            @NotNull Coordinate coordinate,
 	            @Min(0) long id) {
-		super(name, type, level, experience, attack, defense, hitPoints, coordinate);
+		super(name, type, level, experience, attack, defense, hitPoints, new Coordinate(0,0));
 		this.id = id;
+		armor = null;
+		weapon = null;
+		helmet = null;
 	}
 
 	public Hero(@NotNull String name,
@@ -44,16 +49,24 @@ public class Hero extends Charicter {
 	            @Min(0) int attack,
 	            @Min(0) int defense,
 	            @Min(0) int hitPoints,
-	            @NotNull Coordinate coordinate,
 	            Artifact weapon,
 	            Artifact armor,
 	            Artifact helmet,
 	            @Min(0) long id) {
-		super(name, type, level, experience, attack, defense, hitPoints, coordinate);
+		super(name, type, level, experience, attack, defense, hitPoints, new Coordinate(0,0));
 		this.weapon = weapon;
 		this.armor = armor;
 		this.helmet = helmet;
 		this.id = id;
+	}
+
+
+	public Hero(@NotNull String name, @NotNull CharacterType type) {
+		super(name, type);
+		armor = null;
+		weapon = null;
+		helmet = null;
+		id = -1;
 	}
 
 	public void increaseEXP(long exp) {

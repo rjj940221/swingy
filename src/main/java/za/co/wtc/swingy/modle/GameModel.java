@@ -1,6 +1,7 @@
 package za.co.wtc.swingy.modle;
 
 import za.co.wtc.swingy.modle.charicters.CharacterType;
+import za.co.wtc.swingy.modle.charicters.CharicterFactory;
 import za.co.wtc.swingy.modle.charicters.Hero;
 import za.co.wtc.swingy.modle.charicters.Monster;
 
@@ -9,11 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GameModel {
-	@NotNull
 	private Hero hero;
 	private List<Monster> monsters = new ArrayList<>();
 	private Monster oponent;
-	private FightState lastfight;
 	private int size;
 
 	public GameModel(Hero hero) {
@@ -22,24 +21,29 @@ public class GameModel {
 	}
 
 	public void setLevel(){
-		monsters.clear();
-		size = (hero.getLevel() - 1) * 5 + 10 - (hero.getLevel() % 2);
-		System.out.println("size: "+ size);
-		this.hero.setCoordinate(new Coordinate(size / 2, size / 2));
-		int numMonsters = (size / 4 - ((int)(Math.random() * 2)));
-		int x,y;
-		for (int i = 0; i <= numMonsters; i++){
-			x = (int)(Math.random() * (size + 1));
-			y = (int)(Math.random() * (size + 1));
-			System.out.println("Placed monster at " + x + " " + y);
-			monsters.add(new Monster(CharacterType.ORC, (int)(Math.random() * hero.getLevel()),0,1,
-					2,20, new Coordinate(x,y)));
+		if (hero != null) {
+			monsters.clear();
+			size = (hero.getLevel() - 1) * 5 + 10 - (hero.getLevel() % 2);
+			System.out.println("size: " + size);
+			this.hero.setCoordinate(new Coordinate(size / 2, size / 2));
+			int numMonsters = (size / 3 - ((int) (Math.random() * 2)));
+			int x, y;
+			for (int i = 0; i <= numMonsters; i++) {
+				x = (int) (Math.random() * (size + 1));
+				y = (int) (Math.random() * (size + 1));
+				System.out.println("Placed monster at " + x + " " + y);
+				monsters.add(CharicterFactory.randomMonster(hero.getLevel() + 1, new Coordinate(x, y)));
+			}
+			oponent = null;
 		}
-		oponent = null;
 	}
 
 	public Hero getHero() {
 		return hero;
+	}
+
+	public void setHero(Hero hero) {
+		this.hero = hero;
 	}
 
 	public Monster getOponent() {
@@ -53,7 +57,7 @@ public class GameModel {
 				return false;
 			}
 		}
-		if (hero.getCoordinate().getX() < 0 ||
+		if (hero == null || hero.getCoordinate().getX() < 0 ||
 				hero.getCoordinate().getX() > size ||
 				hero.getCoordinate().getY() < 0||
 				hero.getCoordinate().getY() > size){

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package za.co.wtc.swingy.view;
+package za.co.wtc.swingy.view.gui;
 
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
@@ -19,7 +19,7 @@ public class LoadCreateGUI extends javax.swing.JFrame {
      */
     public LoadCreateGUI() {
         initComponents();
-        this.setVisible(true);
+        //this.setVisible(true);
     }
 
     

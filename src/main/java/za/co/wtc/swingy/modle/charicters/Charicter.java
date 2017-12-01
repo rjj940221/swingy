@@ -97,6 +97,18 @@ public abstract class Charicter {
 		this.direction = Direction.North;
 	}
 
+	public Charicter(@NotNull String name, @NotNull CharacterType type) {
+		this.name = name;
+		this.type = type;
+		this.level = 0;
+		this.experience = 0;
+		this.attack = 0;
+		this.defense = 0;
+		this.hitPoints = 0;
+		this.coordinate = new Coordinate(0,0);
+		this.direction = Direction.North;
+	}
+
 	@Override
 	public String toString() {
 		return "{name='" + name + '\'' +

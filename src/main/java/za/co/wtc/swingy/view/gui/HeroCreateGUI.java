@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package za.co.wtc.swingy.view;
+package za.co.wtc.swingy.view.gui;
 
 import javax.swing.DefaultComboBoxModel;
 import za.co.wtc.swingy.modle.charicters.CharacterType;
@@ -23,7 +23,7 @@ public class HeroCreateGUI extends javax.swing.JFrame {
         initComponents();
         DefaultComboBoxModel model = new DefaultComboBoxModel(CharacterType.getHero().toArray());
         cmbClass.setModel(model);
-        this.setVisible(true);
+        //this.setVisible(true);
     }
 
     @SuppressWarnings("unchecked")

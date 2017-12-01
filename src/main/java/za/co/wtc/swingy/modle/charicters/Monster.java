@@ -6,7 +6,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.util.Random;
 
-public class Monster extends Charicter {
+public abstract class Monster extends Charicter {
 	private static final String[] names = {"Borge", "Zignith", "Herrid"};
 
 	public Monster(@NotNull CharacterType type,

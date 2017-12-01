@@ -1,11 +1,12 @@
-package za.co.wtc.swingy.controller;
+package za.co.wtc.swingy.controller.gui;
 
 import za.co.wtc.swingy.modle.GameModel;
 import za.co.wtc.swingy.modle.charicters.CharacterType;
+import za.co.wtc.swingy.modle.charicters.CharicterFactory;
 import za.co.wtc.swingy.modle.charicters.Hero;
 import za.co.wtc.swingy.store.SqlStore;
-import za.co.wtc.swingy.view.GameGUI;
-import za.co.wtc.swingy.view.HeroCreateGUI;
+import za.co.wtc.swingy.view.gui.GameGUI;
+import za.co.wtc.swingy.view.gui.HeroCreateGUI;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -31,7 +32,7 @@ public class HeroCreateControllerGUI {
 			if (!name.trim().isEmpty()){
 
 				try {
-					hero = new Hero(name, CharacterType.valueOf(type),0,0,10,5,40);
+					hero = CharicterFactory.creatHero(CharacterType.valueOf(type),name);
 					Connection con = SqlStore.getConnection();
 					int id = SqlStore.addHero(con, hero);
 					hero.setId(id);

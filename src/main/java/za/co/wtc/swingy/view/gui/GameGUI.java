@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package za.co.wtc.swingy.view;
+package za.co.wtc.swingy.view.gui;
 
 import za.co.wtc.swingy.modle.Direction;
 import za.co.wtc.swingy.modle.charicters.Hero;
@@ -20,7 +20,7 @@ public class GameGUI extends javax.swing.JFrame {
 	 */
 	public GameGUI() {
 		initComponents();
-		this.setVisible(true);
+		//this.setVisible(true);
 	}
 
 
@@ -243,27 +243,29 @@ public class GameGUI extends javax.swing.JFrame {
 	}
 
 	public void displayHeroStats(Hero hero) {
-		txfName.setText(hero.getName());
-		txfClass.setText(hero.getType().toString());
-		txfLevel.setText(hero.getLevel() + "");
-		txfExperience.setText(hero.getExperience() + "");
-		txfAttack.setText(hero.getAttack() + "");
-		txfDefence.setText(hero.getDefense() + "");
-		txfHitPoints.setText(hero.getHitPoints() + "");
-		if (hero.getHelmet() != null) {
-			txfHelm.setText(hero.getHelmet().getValue() + "");
-		} else {
-			txfHelm.setText("");
-		}
-		if (hero.getArmor() != null) {
-			txfArmor.setText(hero.getArmor().getValue() + "");
-		} else {
-			txfArmor.setText("");
-		}
-		if (hero.getWeapon() != null) {
-			txfWeapon.setText(hero.getWeapon().getValue() + "");
-		} else {
-			txfWeapon.setText("");
+		if (hero != null) {
+			txfName.setText(hero.getName());
+			txfClass.setText(hero.getType().toString());
+			txfLevel.setText(hero.getLevel() + "");
+			txfExperience.setText(hero.getExperience() + "");
+			txfAttack.setText(hero.getAttack() + "");
+			txfDefence.setText(hero.getDefense() + "");
+			txfHitPoints.setText(hero.getHitPoints() + "");
+			if (hero.getHelmet() != null) {
+				txfHelm.setText(hero.getHelmet().getValue() + "");
+			} else {
+				txfHelm.setText("");
+			}
+			if (hero.getArmor() != null) {
+				txfArmor.setText(hero.getArmor().getValue() + "");
+			} else {
+				txfArmor.setText("");
+			}
+			if (hero.getWeapon() != null) {
+				txfWeapon.setText(hero.getWeapon().getValue() + "");
+			} else {
+				txfWeapon.setText("");
+			}
 		}
 	}
 

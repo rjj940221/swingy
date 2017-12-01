@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package za.co.wtc.swingy.view;
+package za.co.wtc.swingy.view.gui;
 
 import za.co.wtc.swingy.modle.charicters.Hero;
 
@@ -20,7 +20,7 @@ public class HeroSelectGUI extends javax.swing.JFrame {
 
 	public HeroSelectGUI() {
 		initComponents();
-		this.setVisible(true);
+		//this.setVisible(true);
 	}
 
 	@SuppressWarnings("unchecked")
