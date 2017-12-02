@@ -12,11 +12,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class HeroSelectControllerGUI {
 	private HeroSelectGUI view;
-	private Hero hero;
 	private List<Hero> heros;
 	private Connection con;
 
@@ -25,12 +25,16 @@ public class HeroSelectControllerGUI {
 
 	}
 
-	public void display(){
+	public void display() {
 		view.setVisible(true);
 		try {
 			con = SqlStore.getConnection();
 			heros = SqlStore.listHerose(con);
-			this.view.setModel(heros);
+			List<String> names = new ArrayList<>();
+			for (Hero hero : heros) {
+				names.add(hero.getName());
+			}
+			this.view.setModel(names);
 			this.view.addButtonListner(new btnSelect());
 			this.view.addListListner(new lstSelect());
 		} catch (SQLException e) {
@@ -43,14 +47,15 @@ public class HeroSelectControllerGUI {
 		@Override
 		public void valueChanged(ListSelectionEvent listSelectionEvent) {
 			view.enableSelect();
+			view.displayHeroStats(heros.get(view.getSelected()));
 		}
 	}
 
-	class btnSelect implements ActionListener{
+	class btnSelect implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent actionEvent) {
-			hero = view.getSelected();
+			Hero hero = heros.get(view.getSelected());
 			view.setVisible(false);
 			WindowController.getIncetance().getGameController().startMap(hero);
 		}

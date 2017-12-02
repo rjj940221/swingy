@@ -32,17 +32,28 @@ class GameControllerGUI {
 		if (game.canMove()) {
 			this.view.setMoveInteract(true);
 			this.view.setFightInteracta(false);
+		}else {
+			this.view.setMoveInteract(false);
+			this.view.setFightInteracta(true);
+		}
+	}
+
+	private void setBtn(){
+		if (game.canMove()) {
+			this.view.setMoveInteract(true);
+			this.view.setFightInteracta(false);
+		}else {
+			this.view.setMoveInteract(false);
+			this.view.setFightInteracta(true);
+			view.displayEnemyStats(game.getOponent());
 		}
 	}
 
 	Boolean startMap(Hero hero) {
 		game.setHero(hero);
 		game.setLevel();
-		view.setGameLog("Map started");
-		if (game.canMove()) {
-			this.view.setMoveInteract(true);
-			this.view.setFightInteracta(false);
-		}
+		view.setGameLog("Map started\n");
+		setBtn();
 		this.view.displayHeroStats(game.getHero());
 		this.view.setVisible(true);
 		return true;
@@ -51,14 +62,8 @@ class GameControllerGUI {
 	Boolean startMap() {
 		if (game.getHero() != null) {
 			game.setLevel();
-			view.setGameLog("Map started");
-			if (game.canMove()) {
-				this.view.setMoveInteract(true);
-				this.view.setFightInteracta(false);
-			} else {
-				this.view.setMoveInteract(false);
-				this.view.setFightInteracta(true);
-			}
+			view.setGameLog("Map started\n");
+			setBtn();
 			this.view.displayHeroStats(game.getHero());
 			this.view.setVisible(true);
 			return true;
@@ -80,10 +85,7 @@ class GameControllerGUI {
 		}
 		view.displayHeroStats(game.getHero());
 		view.displayEnemyStats(game.getOponent());
-		if (game.canMove()) {
-			view.setFightInteracta(false);
-			view.setMoveInteract(true);
-		}
+		setBtn();
 	}
 
 	class FightAction implements ActionListener {
@@ -103,7 +105,6 @@ class GameControllerGUI {
 				game.gameCompletionBonus();
 				try {
 					Connection con = SqlStore.getConnection();
-					System.out.println("Trying to update hero.");
 					SqlStore.updateHero(con, game.getHero());
 					if (con != null) {
 						con.close();
@@ -111,7 +112,6 @@ class GameControllerGUI {
 				} catch (SQLException e1) {
 					e1.printStackTrace();
 				}
-				System.out.println("hero updated.");
 				view.displayHeroStats(game.getHero());
 				view.setFightInteracta(false);
 				view.setMoveInteract(false);
@@ -145,16 +145,14 @@ class GameControllerGUI {
 		public void actionPerformed(ActionEvent e) {
 			if (game.flee()) {
 				view.appendGameLog("You escaped conflict\n");
-				if (game.canMove()) {
-					view.setFightInteracta(false);
-					view.setMoveInteract(true);
-				}else {
+				setBtn();
+				if (!game.canMove()) {
 					view.appendGameLog("Unfortunately you ran into another enemy\n");
 				}
+				view.displayEnemyStats(game.getOponent());
 			} else {
 				view.appendGameLog("You could not evade your enemy and are forced to fight\n");
 				fightConclusion(game.fight());
-
 			}
 		}
 	}
@@ -173,7 +171,7 @@ class GameControllerGUI {
 		@Override
 		public void actionPerformed(ActionEvent actionEvent) {
 			JOptionPane.showMessageDialog(view, "Not yet implemented");
-			view.displayMenu(false);
+			//view.displayMenu(false);
 		}
 	}
 

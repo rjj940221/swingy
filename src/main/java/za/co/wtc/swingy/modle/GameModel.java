@@ -73,6 +73,12 @@ public class GameModel {
 	public Boolean flee() {
 		if ((int) (Math.random() * 2) == 1) {
 			hero.move(hero.getDirection().oposite());
+			oponent = null;
+			for (Monster monster : monsters) {
+				if (hero.getCoordinate().equals(monster.getCoordinate())) {
+					oponent = monster;
+				}
+			}
 			return true;
 		}
 		return false;
@@ -83,6 +89,11 @@ public class GameModel {
 			oponent.takeDamage(hero.getAttack());
 			hero.takeDamage(oponent.getAttack());
 			if(oponent.getHitPoints() == 0) {
+				long exp = 20 * (oponent.getLevel() + 1);
+				if (oponent.getLevel() > hero.getLevel())
+					exp += (oponent.getLevel() - hero.getLevel()) * 80;
+				//System.out.println("Fight exp: " + exp);
+				hero.increaseEXP(exp);
 				monsters.remove(oponent);
 				oponent = null;
 				return FightState.VICTORY;
@@ -107,6 +118,6 @@ public class GameModel {
 	}
 
 	public void gameCompletionBonus(){
-		hero.increaseEXP(10);
+		hero.increaseEXP(size * size);
 	}
 }
