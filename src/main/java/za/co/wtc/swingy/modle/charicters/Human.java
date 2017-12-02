@@ -36,4 +36,17 @@ public class Human extends Hero{
 		defense = level * 10 + 5;
 		hitPoints = 50 * level + 50;
 	}
+
+	@Override
+	public void fullHealth() {
+		defense = level * 10 + 5;
+		hitPoints = 50 * level + 50;
+	}
+
+	@Override
+	protected void increaseStats() {
+		attack = level * 10 + 5;
+		defense = level * 10 + 5;
+		hitPoints = 50 * level + 50;
+	}
 }

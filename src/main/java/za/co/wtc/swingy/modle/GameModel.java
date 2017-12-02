@@ -26,12 +26,12 @@ public class GameModel {
 			size = (hero.getLevel() - 1) * 5 + 10 - (hero.getLevel() % 2);
 			System.out.println("size: " + size);
 			this.hero.setCoordinate(new Coordinate(size / 2, size / 2));
-			int numMonsters = (size / 3 - ((int) (Math.random() * 2)));
+			int numMonsters = ((size * size) / 4 - ((int) (Math.random() * 2)));
 			int x, y;
 			for (int i = 0; i <= numMonsters; i++) {
 				x = (int) (Math.random() * (size + 1));
 				y = (int) (Math.random() * (size + 1));
-				System.out.println("Placed monster at " + x + " " + y);
+				//System.out.println("Placed monster at " + x + " " + y);
 				monsters.add(CharicterFactory.randomMonster(hero.getLevel() + 1, new Coordinate(x, y)));
 			}
 			oponent = null;

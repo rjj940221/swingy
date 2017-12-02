@@ -8,6 +8,7 @@ import za.co.wtc.swingy.modle.charicters.CharicterFactory;
 import za.co.wtc.swingy.modle.charicters.Hero;
 import za.co.wtc.swingy.modle.charicters.Human;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.Null;
 import java.sql.*;
 import java.util.ArrayList;
@@ -128,18 +129,66 @@ public class SqlStore {
 		return -1;
 	}
 
-	public static void updateHero(Connection con, Hero hero) throws SQLException {
+	public static Hero getHero(Connection con, long id) throws SQLException {
+		Hero re = null;
 		PreparedStatement stmt = null;
-		String query = "UPDATE HERO SET name = '?', level = '?', experience = '?' WHERE id = '?'";
+		String query = "SELECT * FROM HEROS WHERE id = ?";
 		try {
 			stmt = con.prepareStatement(query);
-			stmt.setString(1, hero.getName());
-			stmt.setInt(2, hero.getLevel());
-			stmt.setLong(3, hero.getExperience());
-			stmt.setLong(4, hero.getID());
-			ResultSet rs = stmt.executeQuery(query);
-
+			stmt.setInt(1, (int) id);
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				re = CharicterFactory.creatHero(CharacterType.valueOf(rs.getString("type")),
+						rs.getString("name"),
+						rs.getInt("level"),
+						rs.getInt("experience"),
+						rs.getInt("attack"),
+						rs.getInt("defence"),
+						rs.getInt("hit_points"),
+						null, null, null,
+						rs.getInt("id"));
+			}
 		} catch (SQLException e) {
+			System.err.println("Data base failure.");
+			System.exit(1);
+		} finally {
+			if (stmt != null) {
+				stmt.close();
+			}
+		}
+		return re;
+	}
+
+	public static void updateHero(Connection con, Hero hero) throws SQLException {
+		PreparedStatement stmt = null;
+		String query = "UPDATE swingy.HEROS SET level = ?, experience = ?, attack = ?, defence = ?, hit_points = ?, weapon = ?, armor = ?, helm = ? WHERE id = ?;";
+		try {
+			stmt = con.prepareStatement(query);
+			stmt.setInt(1, hero.getLevel());
+			stmt.setLong(2, hero.getExperience());
+			stmt.setInt(3, hero.getAttack());
+			stmt.setInt(4, hero.getDefense());
+			stmt.setInt(5, hero.getHitPoints());
+			if (hero.getWeapon() != null) {
+				stmt.setInt(6, hero.getWeapon().getId());
+			} else {
+				stmt.setObject(6, null);
+			}
+			if (hero.getArmor() != null) {
+				stmt.setInt(7, hero.getArmor().getId());
+			} else {
+				stmt.setObject(7, null);
+			}
+			if (hero.getHelmet() != null) {
+				stmt.setInt(8, hero.getHelmet().getId());
+			} else {
+				stmt.setObject(8, null);
+			}
+			stmt.setLong(9, hero.getID());
+			int rs = stmt.executeUpdate();
+			System.out.println(rs + " rows affected");
+		} catch (SQLException e) {
+			e.printStackTrace();
 			System.err.println("Data base failure.");
 			System.exit(1);
 		} finally {

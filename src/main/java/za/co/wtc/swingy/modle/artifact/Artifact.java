@@ -10,6 +10,7 @@ public abstract class Artifact {
     private int value;
     @Min(0)
     private int maxValue;
+    private int id;
 
     public Artifact(@NotNull ArtifactType type, @Min(0) int value) {
         this.type = type;
@@ -42,4 +43,12 @@ public abstract class Artifact {
             return 0;
         }
     }
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 }

@@ -37,8 +37,8 @@ public class HeroCreateControllerGUI {
 					int id = SqlStore.addHero(con, hero);
 					hero.setId(id);
 					con.close();
-					new GameControllerGUI(new GameModel(hero), new GameGUI());
 					view.setVisible(false);
+					WindowController.getIncetance().getGameController().startMap(hero);
 				} catch (SQLException e1) {
 					e1.printStackTrace();
 				}

@@ -12,17 +12,25 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 
 public class HeroSelectControllerGUI {
 	private HeroSelectGUI view;
 	private Hero hero;
+	private List<Hero> heros;
 	private Connection con;
 
 	public HeroSelectControllerGUI(HeroSelectGUI view) {
 		this.view = view;
+
+	}
+
+	public void display(){
+		view.setVisible(true);
 		try {
 			con = SqlStore.getConnection();
-			this.view.setModel(SqlStore.listHerose(con));
+			heros = SqlStore.listHerose(con);
+			this.view.setModel(heros);
 			this.view.addButtonListner(new btnSelect());
 			this.view.addListListner(new lstSelect());
 		} catch (SQLException e) {
@@ -43,8 +51,8 @@ public class HeroSelectControllerGUI {
 		@Override
 		public void actionPerformed(ActionEvent actionEvent) {
 			hero = view.getSelected();
-			new GameControllerGUI(new GameModel(hero), new GameGUI());
 			view.setVisible(false);
+			WindowController.getIncetance().getGameController().startMap(hero);
 		}
 	}
 }

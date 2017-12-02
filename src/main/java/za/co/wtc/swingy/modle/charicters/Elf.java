@@ -46,4 +46,17 @@ public class Elf extends Hero{
 	           @Min(0) int hitPoints) {
 		super(name, CharacterType.ELF, level, experience, attack, defense, hitPoints);
 	}
+
+	@Override
+	public void fullHealth() {
+		defense = level * 10 + 5;
+		hitPoints = 45 * level + 45;
+	}
+
+	@Override
+	protected void increaseStats() {
+		attack = level * 10 + 5;
+		defense = level * 10 + 5;
+		hitPoints = 45 * level + 45;
+	}
 }

@@ -47,4 +47,17 @@ public class Dwalf extends  Hero{
 		defense = level * 10 + 5;
 		hitPoints = 60 * level + 60;
 	}
+
+	@Override
+	public void fullHealth() {
+		defense = level * 10 + 5;
+		hitPoints = 60 * level + 60;
+	}
+
+	@Override
+	protected void increaseStats() {
+		attack = level * 10 + 5;
+		defense = level * 10 + 5;
+		hitPoints = 60 * level + 60;
+	}
 }

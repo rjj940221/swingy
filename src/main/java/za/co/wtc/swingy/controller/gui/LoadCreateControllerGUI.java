@@ -36,7 +36,7 @@ public class LoadCreateControllerGUI {
 
 		@Override
 		public void actionPerformed(ActionEvent actionEvent) {
-			WindowController.getIncetance().getHeroSelect().setVisible(true);
+			WindowController.getIncetance().getSelectController().display();
 			view.setVisible(false);
 		}
 	}

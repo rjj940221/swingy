@@ -2,7 +2,6 @@ package za.co.wtc.swingy.modle.charicters;
 
 import za.co.wtc.swingy.modle.Coordinate;
 import za.co.wtc.swingy.modle.artifact.Artifact;
-import za.co.wtc.swingy.modle.charicters.Charicter;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -75,8 +74,13 @@ public abstract class Hero extends Charicter {
 		double testEx = ((testLevel * 1000) + Math.pow(level, 2)) * 450;
 		if (experience >= testEx) {
 			level += 1;
+			increaseStats();
 		}
 	}
+
+	public abstract void fullHealth();
+
+	protected abstract void increaseStats();
 
 	public void setId(long id) {
 		this.id = id;
