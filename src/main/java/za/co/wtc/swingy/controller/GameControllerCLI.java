@@ -29,27 +29,29 @@ public class GameControllerCLI {
 				runGame();
 				break;
 			case 1:
+				System.out.println("CLI Call to gamecntrlGUIdisplay");
 				WindowController.getIncetance().getGameControllerGUI().displayMenu();
+				System.out.println("CLI Call to gamecntrlGUIdisplay returned");
 				break;
 			case 2:
 				try {
 					con = SqlStore.getConnection();
 					List<Hero> heroes = SqlStore.listHerose(con);
-					if (con != null) {
-						con.close();
-					}
+
 					Hero hero;
 					boolean create = true;
 					if (!heroes.isEmpty()) {
-						LoadCreateControllerCLI loadCreate = new LoadCreateControllerCLI(new LoadCreateCLI());
-						create = loadCreate.create();
+						create = WindowController.getIncetance().getLoadCreateControllerCLI().create();
 					}
 					if (create) {
-						hero = new HeroCreateControllerCLI(new HeroCreateCLI()).getNewHero();
+						hero = WindowController.getIncetance().getHeroCreateControllerCLI().getNewHero();
 						int id = SqlStore.addHero(con, hero);
 						hero.setId(id);
 					} else {
-						hero = new HeroSelectorControllerCLI(new HeroSelectCLI(), heroes).selectHero();
+						hero = WindowController.getIncetance().getHeroSelectorControllerCLI().selectHero();
+					}
+					if (con != null) {
+						con.close();
 					}
 					if (hero == null) {
 						System.err.print("Failed to load hero");
@@ -61,7 +63,13 @@ public class GameControllerCLI {
 				}
 
 				break;
+			case 3:
+				System.exit(0);
+				break;
+
+
 		}
+		System.out.println("CLI menu ended");
 	}
 
 
@@ -81,6 +89,25 @@ public class GameControllerCLI {
 					}
 				}
 			}
+			if (gameModel.canPickUp()){
+				if(gameView.pickupArtifact(gameModel.getDropped())){
+					gameModel.pickUpArtifact();
+				}
+			}
+		}
+		try {
+			Connection con = SqlStore.getConnection();
+			if (gameModel.getGameState() == GameState.Victory) {
+				gameModel.gameCompletionBonus();
+				SqlStore.updateHero(con, gameModel.getHero());
+			} else {
+				gameModel.setHero(SqlStore.getHero(con, gameModel.getHero().getID()));
+			}
+			if (con != null){
+				con.close();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 		displayMenu();
 	}

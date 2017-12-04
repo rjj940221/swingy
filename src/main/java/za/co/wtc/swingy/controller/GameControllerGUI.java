@@ -40,8 +40,10 @@ class GameControllerGUI {
 
 	void displayMenu(){
 		view.displayHeroStats(null);
-		view.displayHeroStats(null);
+		view.displayEnemyStats(null);
+		view.setVisible(true);
 		view.displayMenu(true);
+		System.out.println("display menu done");
 	}
 
 	private void setBtn() {
@@ -71,6 +73,7 @@ class GameControllerGUI {
 			view.setGameLog("Map started\n");
 			setBtn();
 			this.view.displayHeroStats(game.getHero());
+			this.view.displayEnemyStats(game.getOponent());
 			this.view.setVisible(true);
 			return true;
 		}
@@ -173,9 +176,9 @@ class GameControllerGUI {
 
 		@Override
 		public void actionPerformed(ActionEvent actionEvent) {
+			System.out.println("Got next map event");
 			startMap();
 			view.displayMenu(false);
-			view.setFocusable(true);
 		}
 	}
 
@@ -183,7 +186,6 @@ class GameControllerGUI {
 
 		@Override
 		public void actionPerformed(ActionEvent actionEvent) {
-			//JOptionPane.showMessageDialog(view, "Not yet implemented");
 			view.displayMenu(false);
 			view.setVisible(false);
 			WindowController.getIncetance().getGameControllerCLI().displayMenu();

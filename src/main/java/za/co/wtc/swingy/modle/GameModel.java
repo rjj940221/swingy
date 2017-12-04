@@ -34,7 +34,6 @@ public class GameModel {
 			for (int i = 0; i <= numMonsters; i++) {
 				x = (int) (Math.random() * (size + 1));
 				y = (int) (Math.random() * (size + 1));
-				//System.out.println("Placed monster at " + x + " " + y);
 				monsters.add(CharicterFactory.randomMonster(hero.getLevel() + 1, new Coordinate(x, y)));
 			}
 			oponent = null;
@@ -116,7 +115,6 @@ public class GameModel {
 				if (oponent.getLevel() >= hero.getLevel()) {
 					dropped = oponent.dropArtifact();
 				}
-				//System.out.println("Fight exp: " + exp);
 				hero.increaseEXP(exp);
 				monsters.remove(oponent);
 				oponent = null;

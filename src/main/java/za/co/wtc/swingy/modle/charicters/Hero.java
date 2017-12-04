@@ -75,7 +75,6 @@ public abstract class Hero extends Charicter {
 		experience += exp;
 		int testLevel = level + 1;
 		double testEx = (testLevel * 1000) + Math.pow(level, 2) * 450;
-		System.out.println("Increased ex testing next level: " + testEx);
 		if (experience >= testEx) {
 			level += 1;
 			increaseStats();

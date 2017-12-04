@@ -49,7 +49,6 @@ public class Elf extends Hero{
 
 	@Override
 	public void fullHealth() {
-		System.out.println("Elf full health");
 		defense = level * 10 + 5;
 		hitPoints = 45 * level + 45;
 	}

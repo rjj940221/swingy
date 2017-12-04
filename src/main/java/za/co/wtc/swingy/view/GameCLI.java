@@ -1,6 +1,7 @@
 package za.co.wtc.swingy.view;
 
 import za.co.wtc.swingy.modle.Direction;
+import za.co.wtc.swingy.modle.artifact.Artifact;
 import za.co.wtc.swingy.modle.charicters.Hero;
 import za.co.wtc.swingy.modle.charicters.Monster;
 
@@ -92,5 +93,13 @@ public class GameCLI {
 		console.printf("Hero {Name: %s, Class: %s, Level: %d, Experience: %d Attack: %d, Defence: %d, Hit Points: %d}\n",
 				hero.getName(), hero.getType(), hero.getLevel(), hero.getExperience(), hero.getAttack(), hero.getDefense(),
 				hero.getHitPoints());
+	}
+
+	public boolean pickupArtifact(Artifact artifact){
+		String responce;
+		do {
+			responce = console.readLine("found %s of value %d do you want to take it [y/n]: ", artifact.getType(), artifact.getValue());
+		} while (!responce.equalsIgnoreCase("y") && !responce.equalsIgnoreCase("n"));
+		return (responce.equalsIgnoreCase("y"));
 	}
 }

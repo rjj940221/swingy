@@ -27,7 +27,6 @@ public class SqlStore {
 		try {
 			Class.forName(JDBC_DRIVER);
 			Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-			System.out.println("Connected to database");
 			return conn;
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -46,9 +45,7 @@ public class SqlStore {
 			stmtArtifact.setInt(2, artifact.getMaxValue());
 			stmtArtifact.setString(3, artifact.getType().toString());
 			getId = con.createStatement();
-			System.out.println(stmtArtifact.toString());
-			int insert = stmtArtifact.executeUpdate();
-			System.out.println(insert + " row's");
+			stmtArtifact.executeUpdate();
 			ResultSet idRs = getId.executeQuery(lastInsert);
 			if (idRs.next())
 				return idRs.getInt("id");
@@ -67,7 +64,6 @@ public class SqlStore {
 
 	public static Artifact getArtifact(Connection con, int artifactID)
 			throws SQLException {
-		System.out.println("Getting Artifact: " + artifactID);
 		PreparedStatement stmt = null;
 		String query = "SELECT * FROM swingy.ARTIFACT WHERE ID = ?";
 		try {
@@ -103,8 +99,7 @@ public class SqlStore {
 			stmt.setInt(2, artifact.getMaxValue());
 			stmt.setString(3, artifact.getType().toString());
 			stmt.setInt(4, artifact.getId());
-			int rs = stmt.executeUpdate();
-			System.out.println(rs + " rows affected");
+			stmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.err.println("Data base failure.");
@@ -179,9 +174,7 @@ public class SqlStore {
 			stmtHero.setInt(6, hero.getDefense());
 			stmtHero.setInt(7, hero.getHitPoints());
 			getId = con.createStatement();
-			System.out.println(stmtHero.toString());
-			int insert = stmtHero.executeUpdate();
-			System.out.println(insert + " row's");
+			stmtHero.executeUpdate();
 			ResultSet idRs = getId.executeQuery(lastInsert);
 			if (idRs.next())
 				return idRs.getInt("id");
@@ -249,8 +242,7 @@ public class SqlStore {
 				stmt.setObject(8, null);
 			}
 			stmt.setLong(9, hero.getID());
-			int rs = stmt.executeUpdate();
-			System.out.println(rs + " rows affected");
+			stmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.err.println("Data base failure.");

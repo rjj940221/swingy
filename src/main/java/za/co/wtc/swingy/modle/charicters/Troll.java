@@ -26,6 +26,6 @@ public class Troll extends Monster {
 
 			return new Armor((rand.nextInt(level + 2) + 1) * 2);
 		} else
-			return null;
+		return null;
 	}
 }

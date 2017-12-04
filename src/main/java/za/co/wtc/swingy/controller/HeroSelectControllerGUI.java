@@ -25,7 +25,6 @@ public class HeroSelectControllerGUI {
 	}
 
 	public void display() {
-		System.out.println("Setting up load screen set vis and disable select");
 		view.setVisible(true);
 		view.enableSelect(false);
 		try {

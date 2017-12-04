@@ -28,15 +28,15 @@ public class Launcher {
 			Hero hero;
 			boolean create = true;
 			if (!heroes.isEmpty()) {
-				LoadCreateControllerCLI loadCreate = new LoadCreateControllerCLI(new LoadCreateCLI());
-				create = loadCreate.create();
+
+				create = WindowController.getIncetance().getLoadCreateControllerCLI().create();
 			}
 			if (create) {
-				hero = new HeroCreateControllerCLI(new HeroCreateCLI()).getNewHero();
+				hero = WindowController.getIncetance().getHeroCreateControllerCLI().getNewHero();
 				int id = SqlStore.addHero(con, hero);
 				hero.setId(id);
 			} else {
-				hero = new HeroSelectorControllerCLI(new HeroSelectCLI(), heroes).selectHero();
+				hero = WindowController.getIncetance().getHeroSelectorControllerCLI().selectHero();
 			}
 			if (hero == null) {
 				System.err.print("Failed to load hero");

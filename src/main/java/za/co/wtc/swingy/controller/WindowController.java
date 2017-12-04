@@ -1,6 +1,9 @@
 package za.co.wtc.swingy.controller;
 
 import za.co.wtc.swingy.view.GameCLI;
+import za.co.wtc.swingy.view.HeroCreateCLI;
+import za.co.wtc.swingy.view.HeroSelectCLI;
+import za.co.wtc.swingy.view.LoadCreateCLI;
 import za.co.wtc.swingy.view.gui.GameGUI;
 import za.co.wtc.swingy.view.gui.HeroCreateGUI;
 import za.co.wtc.swingy.view.gui.HeroSelectGUI;
@@ -13,6 +16,9 @@ public class WindowController {
 	private HeroSelectControllerGUI selectController = null;
 	private LoadCreateControllerGUI loadCreateController = null;
 	private GameControllerCLI gameControllerCLI = null;
+	private HeroSelectorControllerCLI heroSelectorControllerCLI = null;
+	private HeroCreateControllerCLI heroCreateControllerCLI = null;
+	private LoadCreateControllerCLI loadCreateControllerCLI = null;
 
 
 	private WindowController() {
@@ -24,6 +30,10 @@ public class WindowController {
 		selectController = new HeroSelectControllerGUI(heroSelect);
 		loadCreateController = new LoadCreateControllerGUI(loadCreate);
 		gameControllerCLI  = new GameControllerCLI(new GameCLI(), ModelController.getInstance().getGame());
+		heroSelectorControllerCLI = new HeroSelectorControllerCLI(new HeroSelectCLI());
+		heroCreateControllerCLI = new HeroCreateControllerCLI(new HeroCreateCLI());
+		loadCreateControllerCLI = new LoadCreateControllerCLI(new LoadCreateCLI());
+
 	}
 
 	public static WindowController getIncetance() {
@@ -33,6 +43,14 @@ public class WindowController {
 			}
 		}
 		return incetance;
+	}
+
+	public LoadCreateControllerCLI getLoadCreateControllerCLI() {
+		return loadCreateControllerCLI;
+	}
+
+	public HeroCreateControllerCLI getHeroCreateControllerCLI() {
+		return heroCreateControllerCLI;
 	}
 
 	public GameControllerGUI getGameControllerGUI() {
@@ -55,7 +73,10 @@ public class WindowController {
 		return loadCreateController;
 	}
 
-	/*public GameGUI getGame() {
+	public HeroSelectorControllerCLI getHeroSelectorControllerCLI() {
+		return heroSelectorControllerCLI;
+	}
+/*public GameGUI getGame() {
 		return game;
 	}
 
