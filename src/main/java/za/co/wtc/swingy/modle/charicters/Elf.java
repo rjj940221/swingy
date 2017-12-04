@@ -10,7 +10,7 @@ public class Elf extends Hero{
 	public Elf(@NotNull String name) {
 		super(name, CharacterType.ELF);
 		experience = 0;
-		attack = level * 10 + 5;
+		attack = level * 10 + 7;
 		defense = level * 10 + 5;
 		hitPoints = 45 * level + 45;
 	}
@@ -49,13 +49,14 @@ public class Elf extends Hero{
 
 	@Override
 	public void fullHealth() {
+		System.out.println("Elf full health");
 		defense = level * 10 + 5;
 		hitPoints = 45 * level + 45;
 	}
 
 	@Override
 	protected void increaseStats() {
-		attack = level * 10 + 5;
+		attack = level * 10 + 7;
 		defense = level * 10 + 5;
 		hitPoints = 45 * level + 45;
 	}

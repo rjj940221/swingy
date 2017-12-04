@@ -20,9 +20,11 @@ public class Goblin extends Monster {
 
 	@Override
 	public Artifact dropArtifact() {
-		//if (new Random().nextInt(3) == 1) {
-			return new Helm((level + 1) * 2);
-		//}else
-		//	return null;
+		Random rand = new Random();
+		if (rand.nextInt(3) == 1) {
+
+			return new Helm(rand.nextInt(level + 1) * 2);
+		}else
+			return null;
 	}
 }

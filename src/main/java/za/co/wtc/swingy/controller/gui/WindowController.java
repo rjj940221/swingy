@@ -7,12 +7,7 @@ import za.co.wtc.swingy.view.gui.HeroSelectGUI;
 import za.co.wtc.swingy.view.gui.LoadCreateGUI;
 
 public class WindowController {
-	public static WindowController incetance = null;
-	private GameGUI game = null;
-	private HeroCreateGUI heroCreate = null;
-	private HeroSelectGUI heroSelect = null;
-	private LoadCreateGUI loadCreate = null;
-
+	private static WindowController incetance = null;
 	private GameControllerGUI gameController = null;
 	private HeroCreateControllerGUI createController = null;
 	private HeroSelectControllerGUI selectController = null;
@@ -20,10 +15,10 @@ public class WindowController {
 
 
 	private WindowController() {
-		game = new GameGUI();
-		heroCreate = new HeroCreateGUI();
-		heroSelect = new HeroSelectGUI();
-		loadCreate = new LoadCreateGUI();
+		GameGUI game = new GameGUI();
+		HeroCreateGUI heroCreate = new HeroCreateGUI();
+		HeroSelectGUI heroSelect = new HeroSelectGUI();
+		LoadCreateGUI loadCreate = new LoadCreateGUI();
 		gameController = new GameControllerGUI(new GameModel(null), game);
 		createController = new HeroCreateControllerGUI(heroCreate);
 		selectController = new HeroSelectControllerGUI(heroSelect);
@@ -55,7 +50,7 @@ public class WindowController {
 		return loadCreateController;
 	}
 
-	public GameGUI getGame() {
+	/*public GameGUI getGame() {
 		return game;
 	}
 
@@ -69,5 +64,5 @@ public class WindowController {
 
 	public LoadCreateGUI getLoadCreate() {
 		return loadCreate;
-	}
+	}*/
 }

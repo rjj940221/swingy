@@ -3,6 +3,7 @@ package za.co.wtc.swingy.modle.charicters;
 import za.co.wtc.swingy.modle.Coordinate;
 import za.co.wtc.swingy.modle.artifact.Armor;
 import za.co.wtc.swingy.modle.artifact.Artifact;
+import za.co.wtc.swingy.modle.artifact.Helm;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -20,9 +21,11 @@ public class Troll extends Monster {
 
 	@Override
 	public Artifact dropArtifact() {
-		//if (new Random().nextInt(3) == 1) {
-			return new Armor((level + 1) * 2);
-		//}else
-		//	return null;
+		Random rand = new Random();
+		if (rand.nextInt(3) == 1) {
+
+			return new Armor(rand.nextInt(level + 1) * 2);
+		}else
+			return null;
 	}
 }

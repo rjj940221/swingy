@@ -77,8 +77,8 @@ class GameControllerGUI {
 				try {
 					view.setFightInteracta(false);
 					view.setMoveInteract(false);
-					view.displayMenu(true);
 					view.appendGameLog("YOU ARE DEFEATED");
+					view.displayMenu(true);
 					Connection con = SqlStore.getConnection();
 					game.setHero(SqlStore.getHero(con, game.getHero().getID()));
 					if (con != null) {
@@ -185,10 +185,11 @@ class GameControllerGUI {
 	class ChangHero implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent actionEvent) {
-			view.setVisible(false);
-			WindowController.getIncetance().getLoadCreateController().displayWindow();
 			view.displayMenu(false);
+			view.setVisible(false);
 			view.setFocusable(true);
+			WindowController.getIncetance().getLoadCreateController().displayWindow();
+
 		}
 	}
 

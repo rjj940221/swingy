@@ -22,14 +22,14 @@ public class GameModel {
 		setLevel();
 	}
 
-	public void setLevel(){
+	public void setLevel() {
 		if (hero != null) {
 			hero.fullHealth();
 			monsters.clear();
 			size = (hero.getLevel() - 1) * 5 + 10 - (hero.getLevel() % 2);
 			System.out.println("size: " + size);
 			this.hero.setCoordinate(new Coordinate(size / 2, size / 2));
-			int numMonsters = ((size * size) / 4 - ((int) (Math.random() * 2)));
+			int numMonsters = ((size * size) / 3 - ((int) (Math.random() * 2)));
 			int x, y;
 			for (int i = 0; i <= numMonsters; i++) {
 				x = (int) (Math.random() * (size + 1));
@@ -53,13 +53,12 @@ public class GameModel {
 		return oponent;
 	}
 
-	public boolean canPickUp()
-	{
+	public boolean canPickUp() {
 		return dropped != null;
 	}
 
 	public void pickUpArtifact() {
-		if (dropped != null){
+		if (dropped != null) {
 			hero.pickUpArtifact(dropped);
 		}
 	}
@@ -77,8 +76,8 @@ public class GameModel {
 		}
 		if (hero == null || hero.getCoordinate().getX() < 0 ||
 				hero.getCoordinate().getX() > size ||
-				hero.getCoordinate().getY() < 0||
-				hero.getCoordinate().getY() > size){
+				hero.getCoordinate().getY() < 0 ||
+				hero.getCoordinate().getY() > size) {
 			return false;
 		}
 		return true;
@@ -107,12 +106,14 @@ public class GameModel {
 		if (oponent != null) {
 			oponent.takeDamage(hero.getAttack());
 			hero.takeDamage(oponent.getAttack());
-			if(oponent.getHitPoints() == 0) {
+			if (hero.getHitPoints() == 0) {
+				return FightState.DEFEAT;
+			}
+			if (oponent.getHitPoints() == 0) {
 				long exp = 20 * (oponent.getLevel() + 1);
 				if (oponent.getLevel() > hero.getLevel())
 					exp += (oponent.getLevel() - hero.getLevel()) * 80;
-				if(oponent.getLevel() >= hero.getLevel())
-				{
+				if (oponent.getLevel() >= hero.getLevel()) {
 					dropped = oponent.dropArtifact();
 				}
 				//System.out.println("Fight exp: " + exp);
@@ -121,26 +122,25 @@ public class GameModel {
 				oponent = null;
 				return FightState.VICTORY;
 			}
+
+			return FightState.INCOMBAT;
 		}
-		if(hero.getHitPoints() == 0){
-			return FightState.DEFEAT;
-		}
-		return FightState.INCOMBAT;
+		return FightState.VICTORY;
 	}
 
 	public GameState getGameState() {
 		if (hero.getHitPoints() == 0)
 			return GameState.Defeat;
 		if (hero.getCoordinate().getX() < 0 ||
-				    hero.getCoordinate().getX() > size ||
-				    hero.getCoordinate().getY() < 0||
-					hero.getCoordinate().getY() > size){
+				hero.getCoordinate().getX() > size ||
+				hero.getCoordinate().getY() < 0 ||
+				hero.getCoordinate().getY() > size) {
 			return GameState.Victory;
 		}
 		return GameState.InProgress;
 	}
 
-	public void gameCompletionBonus(){
+	public void gameCompletionBonus() {
 		hero.increaseEXP(size * size);
 	}
 }

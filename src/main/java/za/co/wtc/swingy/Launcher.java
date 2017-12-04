@@ -57,6 +57,8 @@ public class Launcher {
 			List<Hero> heroes = SqlStore.listHerose(con);
 			if (!heroes.isEmpty()) {
 				WindowController.getIncetance().getLoadCreateController().displayWindow();
+			}else {
+				WindowController.getIncetance().getCreateController().displayWindow();
 			}
 		} catch (SQLException e) {
 			System.err.println("Database crash");

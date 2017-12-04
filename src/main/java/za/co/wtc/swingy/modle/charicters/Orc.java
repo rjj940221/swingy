@@ -3,6 +3,7 @@ package za.co.wtc.swingy.modle.charicters;
 
 import za.co.wtc.swingy.modle.Coordinate;
 import za.co.wtc.swingy.modle.artifact.Artifact;
+import za.co.wtc.swingy.modle.artifact.Helm;
 import za.co.wtc.swingy.modle.artifact.Weapon;
 
 import javax.validation.constraints.Min;
@@ -21,9 +22,10 @@ public class Orc extends Monster {
 
 	@Override
 	public Artifact dropArtifact() {
-		//if (new Random().nextInt(3) == 1) {
-			return new Weapon((level + 1) * 2);
-		//}else
-		//	return null;
+		Random rand = new Random();
+		if (rand.nextInt(3) == 1) {
+			return new Weapon(rand.nextInt(level + 1) * 2);
+		}else
+			return null;
 	}
 }

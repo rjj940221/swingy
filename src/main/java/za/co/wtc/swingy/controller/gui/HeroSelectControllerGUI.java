@@ -22,11 +22,14 @@ public class HeroSelectControllerGUI {
 
 	public HeroSelectControllerGUI(HeroSelectGUI view) {
 		this.view = view;
-
+		this.view.addButtonListner(new btnSelect());
+		this.view.addListListner(new lstSelect());
 	}
 
 	public void display() {
+		System.out.println("Setting up load screen set vis and disable select");
 		view.setVisible(true);
+		view.enableSelect(false);
 		try {
 			con = SqlStore.getConnection();
 			heros = SqlStore.listHerose(con);
@@ -35,8 +38,8 @@ public class HeroSelectControllerGUI {
 				names.add(hero.getName());
 			}
 			this.view.setModel(names);
-			this.view.addButtonListner(new btnSelect());
-			this.view.addListListner(new lstSelect());
+
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.err.close();
@@ -46,8 +49,10 @@ public class HeroSelectControllerGUI {
 	class lstSelect implements ListSelectionListener {
 		@Override
 		public void valueChanged(ListSelectionEvent listSelectionEvent) {
-			view.enableSelect();
-			view.displayHeroStats(heros.get(view.getSelected()));
+			if (view.getSelected() > -1) {
+				view.enableSelect(true);
+				view.displayHeroStats(heros.get(view.getSelected()));
+			}
 		}
 	}
 
@@ -56,6 +61,7 @@ public class HeroSelectControllerGUI {
 		@Override
 		public void actionPerformed(ActionEvent actionEvent) {
 			Hero hero = heros.get(view.getSelected());
+			view.setSelectNone();
 			view.setVisible(false);
 			WindowController.getIncetance().getGameController().startMap(hero);
 		}

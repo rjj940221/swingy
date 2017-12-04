@@ -116,6 +116,31 @@ public class SqlStore {
 		}
 	}
 
+	private static  Hero passHero(ResultSet rs, Connection con) throws SQLException {
+		Artifact weapon = null;
+		Artifact armor = null;
+		Artifact helm = null;
+		if (rs.getObject("weapon") != null){
+
+			weapon = getArtifact(con, rs.getInt("weapon"));
+		}
+		if (rs.getObject("armor") != null){
+			armor = getArtifact(con, rs.getInt("armor"));
+		}
+		if (rs.getObject("helm") != null){
+			helm = getArtifact(con, rs.getInt("helm"));
+		}
+		return (CharicterFactory.creatHero(CharacterType.valueOf(rs.getString("type")),
+				rs.getString("name"),
+				rs.getInt("level"),
+				rs.getInt("experience"),
+				rs.getInt("attack"),
+				rs.getInt("defence"),
+				rs.getInt("hit_points"),
+				weapon, armor, helm,
+				rs.getInt("id")));
+	}
+
 	public static List<Hero> listHerose(Connection con) throws SQLException {
 
 		List<Hero> re = new ArrayList<>();
@@ -125,28 +150,7 @@ public class SqlStore {
 			stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 			while (rs.next()) {
-				Artifact weapon = null;
-				Artifact armor = null;
-				Artifact helm = null;
-				if (rs.getObject("weapon") != null){
-
-					weapon = getArtifact(con, rs.getInt("weapon"));
-				}
-				if (rs.getObject("armor") != null){
-					armor = getArtifact(con, rs.getInt("armor"));
-				}
-				if (rs.getObject("helm") != null){
-					helm = getArtifact(con, rs.getInt("helm"));
-				}
-				re.add(CharicterFactory.creatHero(CharacterType.valueOf(rs.getString("type")),
-						rs.getString("name"),
-						rs.getInt("level"),
-						rs.getInt("experience"),
-						rs.getInt("attack"),
-						rs.getInt("defence"),
-						rs.getInt("hit_points"),
-						weapon, armor, helm,
-						rs.getInt("id")));
+				re.add(passHero(rs, con));
 			}
 		} catch (SQLException e) {
 			System.err.println("Data base failure.");
@@ -202,16 +206,8 @@ public class SqlStore {
 			stmt = con.prepareStatement(query);
 			stmt.setInt(1, (int) id);
 			ResultSet rs = stmt.executeQuery();
-			while (rs.next()) {
-				re = CharicterFactory.creatHero(CharacterType.valueOf(rs.getString("type")),
-						rs.getString("name"),
-						rs.getInt("level"),
-						rs.getInt("experience"),
-						rs.getInt("attack"),
-						rs.getInt("defence"),
-						rs.getInt("hit_points"),
-						null, null, null,
-						rs.getInt("id"));
+			if (rs.next())  {
+				re = passHero(rs, con);
 			}
 		} catch (SQLException e) {
 			System.err.println("Data base failure.");

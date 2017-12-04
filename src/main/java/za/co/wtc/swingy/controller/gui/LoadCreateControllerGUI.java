@@ -28,7 +28,7 @@ public class LoadCreateControllerGUI {
 		@Override
 		public void actionPerformed(ActionEvent actionEvent) {
 			view.setVisible(false);
-			//WindowController.getIncetance().getHeroCreate().setVisible(true);
+			WindowController.getIncetance().getCreateController().displayWindow();
 		}
 	}
 

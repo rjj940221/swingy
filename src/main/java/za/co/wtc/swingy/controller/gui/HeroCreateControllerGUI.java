@@ -22,6 +22,10 @@ public class HeroCreateControllerGUI {
 		this.view.addCreateListner(new Create());
 	}
 
+	public void displayWindow(){
+		view.setVisible(true);
+	}
+
 	class Create implements ActionListener{
 
 		@Override
