@@ -39,6 +39,7 @@ class GameControllerGUI {
 	}
 
 	void displayMenu(){
+		WindowController.getIncetance().setGui(true);
 		view.displayHeroStats(null);
 		view.displayEnemyStats(null);
 		view.setVisible(true);
@@ -188,7 +189,8 @@ class GameControllerGUI {
 		public void actionPerformed(ActionEvent actionEvent) {
 			view.displayMenu(false);
 			view.setVisible(false);
-			WindowController.getIncetance().getGameControllerCLI().displayMenu();
+			WindowController.getIncetance().setGui(false);
+			//WindowController.getIncetance().getGameControllerCLI().displayMenu();
 		}
 	}
 

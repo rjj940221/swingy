@@ -19,6 +19,7 @@ public class WindowController {
 	private HeroSelectorControllerCLI heroSelectorControllerCLI = null;
 	private HeroCreateControllerCLI heroCreateControllerCLI = null;
 	private LoadCreateControllerCLI loadCreateControllerCLI = null;
+	private boolean gui = false;
 
 
 	private WindowController() {
@@ -43,6 +44,15 @@ public class WindowController {
 			}
 		}
 		return incetance;
+	}
+
+	public boolean isGui() {
+		return gui;
+	}
+
+	public void setGui(boolean gui) {
+		this.gui = gui;
+		System.out.println("Set gui mode to: "+ gui);
 	}
 
 	public LoadCreateControllerCLI getLoadCreateControllerCLI() {

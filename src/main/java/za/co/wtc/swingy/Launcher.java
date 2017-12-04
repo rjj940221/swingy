@@ -20,11 +20,10 @@ public class Launcher {
 
 	private static void cli() throws SQLException {
 		try {
+			WindowController.getIncetance().setGui(false);
 			Connection con = SqlStore.getConnection();
 			List<Hero> heroes = SqlStore.listHerose(con);
-			if (con != null) {
-				con.close();
-			}
+
 			Hero hero;
 			boolean create = true;
 			if (!heroes.isEmpty()) {
@@ -38,11 +37,15 @@ public class Launcher {
 			} else {
 				hero = WindowController.getIncetance().getHeroSelectorControllerCLI().selectHero();
 			}
+			if (con != null) {
+				con.close();
+			}
 			if (hero == null) {
 				System.err.print("Failed to load hero");
 				System.exit(1);
 			}
 			WindowController.getIncetance().getGameControllerCLI().runGame(hero);
+
 		} catch (SQLException e) {
 			System.err.println("Database crash");
 		}
@@ -51,11 +54,12 @@ public class Launcher {
 	private static void gui() throws SQLException {
 		Connection con = null;
 		try {
+			WindowController.getIncetance().setGui(true);
 			con = SqlStore.getConnection();
 			List<Hero> heroes = SqlStore.listHerose(con);
 			if (!heroes.isEmpty()) {
 				WindowController.getIncetance().getLoadCreateController().displayWindow();
-			}else {
+			} else {
 				WindowController.getIncetance().getCreateController().displayWindow();
 			}
 		} catch (SQLException e) {
@@ -71,16 +75,19 @@ public class Launcher {
 		if (args.length == 1) {
 			try {
 				if (args[0].equalsIgnoreCase("console")) {
-
 					cli();
-
 				} else if (args[0].equalsIgnoreCase("gui")) {
 					gui();
+				}
+				while (true) {
+					if (!WindowController.getIncetance().isGui()) {
+						WindowController.getIncetance().getGameControllerCLI().displayMenu();
+					}
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-		}else{
+		} else {
 			System.out.println("argument not correctly specified expecting 'gui' or 'console'");
 		}
 

@@ -24,12 +24,14 @@ public class GameControllerCLI {
 
 	public void displayMenu() {
 		Connection con;
+		WindowController.getIncetance().setGui(false);
 		switch (gameView.displayMenu()) {
 			case 0:
 				runGame();
 				break;
 			case 1:
 				System.out.println("CLI Call to gamecntrlGUIdisplay");
+
 				WindowController.getIncetance().getGameControllerGUI().displayMenu();
 				System.out.println("CLI Call to gamecntrlGUIdisplay returned");
 				break;
@@ -109,7 +111,7 @@ public class GameControllerCLI {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		displayMenu();
+		//displayMenu();
 	}
 
 	public void runGame(Hero hero) {
