@@ -1,4 +1,4 @@
-package za.co.wtc.swingy.controller.gui;
+package za.co.wtc.swingy.controller;
 
 import za.co.wtc.swingy.modle.Direction;
 import za.co.wtc.swingy.modle.FightState;
@@ -36,6 +36,12 @@ class GameControllerGUI {
 			this.view.setMoveInteract(false);
 			this.view.setFightInteracta(true);
 		}
+	}
+
+	void displayMenu(){
+		view.displayHeroStats(null);
+		view.displayHeroStats(null);
+		view.displayMenu(true);
 	}
 
 	private void setBtn() {
@@ -177,8 +183,10 @@ class GameControllerGUI {
 
 		@Override
 		public void actionPerformed(ActionEvent actionEvent) {
-			JOptionPane.showMessageDialog(view, "Not yet implemented");
-			//view.displayMenu(false);
+			//JOptionPane.showMessageDialog(view, "Not yet implemented");
+			view.displayMenu(false);
+			view.setVisible(false);
+			WindowController.getIncetance().getGameControllerCLI().displayMenu();
 		}
 	}
 

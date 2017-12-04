@@ -9,8 +9,8 @@ import javax.validation.constraints.NotNull;
 import java.util.Random;
 
 public class Goblin extends Monster {
-	public Goblin(@Min(0) int level,
-	              @NotNull Coordinate coordinate) {
+	Goblin(@Min(0) int level,
+	       @NotNull Coordinate coordinate) {
 		super(CharacterType.GOBLIN, level, 0, 0, 0, 0, coordinate);
 		experience = 0;
 		attack = level * 10 + 5;
@@ -23,8 +23,8 @@ public class Goblin extends Monster {
 		Random rand = new Random();
 		if (rand.nextInt(3) == 1) {
 
-			return new Helm(rand.nextInt(level + 1) * 2);
-		}else
+			return new Helm((rand.nextInt(level + 2) + 1) * 2);
+		} else
 			return null;
 	}
 }

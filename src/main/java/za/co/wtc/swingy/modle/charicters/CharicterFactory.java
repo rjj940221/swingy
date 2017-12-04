@@ -5,7 +5,7 @@ import za.co.wtc.swingy.modle.artifact.Artifact;
 
 import java.util.Random;
 
-public class CharicterFactory {
+public abstract class CharicterFactory {
 	public static Hero creatHero(CharacterType type, String name) {
 		switch (type) {
 			case DWARF:

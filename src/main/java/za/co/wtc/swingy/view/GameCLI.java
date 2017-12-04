@@ -71,12 +71,21 @@ public class GameCLI {
 		}
 	}
 
-	public boolean nextMap() {
-		String responce;
-		do {
-			responce = console.readLine("Do you want to load the next map?[y/n]: ");
-		} while (!responce.equalsIgnoreCase("y") && !responce.equalsIgnoreCase("n"));
-		return (responce.equalsIgnoreCase("y"));
+	public int displayMenu() {
+		String res;
+		int resIdx;
+
+		do{
+			res = console.readLine("Menu: \n"+
+					"\t1: Next Map\n\t2: GUI\n\t3: Change Hero\n\t4: Quit\n: ");
+			try {
+				resIdx = Integer.parseInt(res);
+
+			}catch(Exception e){
+				resIdx = -1;
+			}
+		}while(resIdx < 0 || resIdx > 4);
+		return (resIdx - 1);
 	}
 
 	public void displayHero(Hero hero) {

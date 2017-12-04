@@ -10,8 +10,8 @@ import javax.validation.constraints.NotNull;
 import java.util.Random;
 
 public class Troll extends Monster {
-	public Troll(@Min(0) int level,
-	             @NotNull Coordinate coordinate) {
+	Troll(@Min(0) int level,
+	      @NotNull Coordinate coordinate) {
 		super(CharacterType.TROLL, level, 0, 0, 0, 0, coordinate);
 		experience = 0;
 		attack = level * 10 + 5;
@@ -24,8 +24,8 @@ public class Troll extends Monster {
 		Random rand = new Random();
 		if (rand.nextInt(3) == 1) {
 
-			return new Armor(rand.nextInt(level + 1) * 2);
-		}else
+			return new Armor((rand.nextInt(level + 2) + 1) * 2);
+		} else
 			return null;
 	}
 }

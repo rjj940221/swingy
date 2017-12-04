@@ -1,9 +1,7 @@
-package za.co.wtc.swingy.controller.gui;
+package za.co.wtc.swingy.controller;
 
-import za.co.wtc.swingy.modle.GameModel;
 import za.co.wtc.swingy.modle.charicters.Hero;
 import za.co.wtc.swingy.store.SqlStore;
-import za.co.wtc.swingy.view.gui.GameGUI;
 import za.co.wtc.swingy.view.gui.HeroSelectGUI;
 
 import javax.swing.event.ListSelectionEvent;
@@ -63,7 +61,7 @@ public class HeroSelectControllerGUI {
 			Hero hero = heros.get(view.getSelected());
 			view.setSelectNone();
 			view.setVisible(false);
-			WindowController.getIncetance().getGameController().startMap(hero);
+			WindowController.getIncetance().getGameControllerGUI().startMap(hero);
 		}
 	}
 }

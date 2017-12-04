@@ -11,8 +11,8 @@ import javax.validation.constraints.NotNull;
 import java.util.Random;
 
 public class Orc extends Monster {
-	public Orc(@Min(0) int level,
-	           @NotNull Coordinate coordinate) {
+	Orc(@Min(0) int level,
+	    @NotNull Coordinate coordinate) {
 		super(CharacterType.ORC, level, 0, 0, 0, 0, coordinate);
 		experience = 0;
 		attack = level * 10 + 5;
@@ -24,7 +24,7 @@ public class Orc extends Monster {
 	public Artifact dropArtifact() {
 		Random rand = new Random();
 		if (rand.nextInt(3) == 1) {
-			return new Weapon(rand.nextInt(level + 1) * 2);
+			return new Weapon((rand.nextInt(level + 2) + 1) * 2);
 		}else
 			return null;
 	}

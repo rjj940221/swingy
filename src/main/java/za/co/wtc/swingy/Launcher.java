@@ -1,13 +1,14 @@
 package za.co.wtc.swingy;
 
-import za.co.wtc.swingy.controller.*;
-import za.co.wtc.swingy.controller.gui.LoadCreateControllerGUI;
-import za.co.wtc.swingy.controller.gui.WindowController;
-import za.co.wtc.swingy.modle.GameModel;
+import za.co.wtc.swingy.controller.HeroCreateControllerCLI;
+import za.co.wtc.swingy.controller.HeroSelectorControllerCLI;
+import za.co.wtc.swingy.controller.LoadCreateControllerCLI;
+import za.co.wtc.swingy.controller.WindowController;
 import za.co.wtc.swingy.modle.charicters.Hero;
 import za.co.wtc.swingy.store.SqlStore;
-import za.co.wtc.swingy.view.*;
-import za.co.wtc.swingy.view.gui.LoadCreateGUI;
+import za.co.wtc.swingy.view.HeroCreateCLI;
+import za.co.wtc.swingy.view.HeroSelectCLI;
+import za.co.wtc.swingy.view.LoadCreateCLI;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -18,10 +19,12 @@ public class Launcher {
 
 
 	private static void cli() throws SQLException {
-		Connection con = null;
 		try {
-			con = SqlStore.getConnection();
+			Connection con = SqlStore.getConnection();
 			List<Hero> heroes = SqlStore.listHerose(con);
+			if (con != null) {
+				con.close();
+			}
 			Hero hero;
 			boolean create = true;
 			if (!heroes.isEmpty()) {
@@ -39,14 +42,9 @@ public class Launcher {
 				System.err.print("Failed to load hero");
 				System.exit(1);
 			}
-			GameControllerCLI gameControllerCLI = new GameControllerCLI(new GameCLI(), new GameModel(hero));
-			gameControllerCLI.runGame();
+			WindowController.getIncetance().getGameControllerCLI().runGame(hero);
 		} catch (SQLException e) {
 			System.err.println("Database crash");
-		} finally {
-			if (con != null) {
-				con.close();
-			}
 		}
 	}
 

@@ -1,7 +1,5 @@
-package za.co.wtc.swingy.controller.gui;
+package za.co.wtc.swingy.controller;
 
-import za.co.wtc.swingy.view.gui.HeroCreateGUI;
-import za.co.wtc.swingy.view.gui.HeroSelectGUI;
 import za.co.wtc.swingy.view.gui.LoadCreateGUI;
 
 import java.awt.event.ActionEvent;

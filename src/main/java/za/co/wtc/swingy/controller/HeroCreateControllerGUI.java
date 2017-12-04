@@ -1,11 +1,9 @@
-package za.co.wtc.swingy.controller.gui;
+package za.co.wtc.swingy.controller;
 
-import za.co.wtc.swingy.modle.GameModel;
 import za.co.wtc.swingy.modle.charicters.CharacterType;
 import za.co.wtc.swingy.modle.charicters.CharicterFactory;
 import za.co.wtc.swingy.modle.charicters.Hero;
 import za.co.wtc.swingy.store.SqlStore;
-import za.co.wtc.swingy.view.gui.GameGUI;
 import za.co.wtc.swingy.view.gui.HeroCreateGUI;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -42,7 +40,7 @@ public class HeroCreateControllerGUI {
 					hero.setId(id);
 					con.close();
 					view.setVisible(false);
-					WindowController.getIncetance().getGameController().startMap(hero);
+					WindowController.getIncetance().getGameControllerGUI().startMap(hero);
 				} catch (SQLException e1) {
 					e1.printStackTrace();
 				}

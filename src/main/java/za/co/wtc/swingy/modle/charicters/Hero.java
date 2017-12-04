@@ -37,7 +37,7 @@ public abstract class Hero extends Charicter {
 	            @Min(0) int defense,
 	            @Min(0) int hitPoints,
 	            @Min(0) long id) {
-		super(name, type, level, experience, attack, defense, hitPoints, new Coordinate(0,0));
+		super(name, type, level, experience, attack, defense, hitPoints, new Coordinate(0, 0));
 		this.id = id;
 		armor = null;
 		weapon = null;
@@ -55,7 +55,7 @@ public abstract class Hero extends Charicter {
 	            Artifact armor,
 	            Artifact helmet,
 	            @Min(0) long id) {
-		super(name, type, level, experience, attack, defense, hitPoints, new Coordinate(0,0));
+		super(name, type, level, experience, attack, defense, hitPoints, new Coordinate(0, 0));
 		this.weapon = weapon;
 		this.armor = armor;
 		this.helmet = helmet;
@@ -106,55 +106,52 @@ public abstract class Hero extends Charicter {
 		return helmet;
 	}
 
-	public void pickUpArtifact(Artifact artifact){
+	public void pickUpArtifact(Artifact artifact) {
 		switch (artifact.getType()) {
 			case Helm:
-				if (helmet == null){
+				if (helmet == null) {
 					try {
 						Connection con = SqlStore.getConnection();
 						artifact.setId(SqlStore.addArtifact(con, artifact));
-						if(con != null)
+						if (con != null)
 							con.close();
 						helmet = artifact;
 					} catch (SQLException e) {
 						e.printStackTrace();
 					}
-				}
-				else {
+				} else {
 					artifact.setId(helmet.getId());
 					helmet = artifact;
 				}
 				break;
 			case Armor:
-				if (armor == null){
+				if (armor == null) {
 					try {
 						Connection con = SqlStore.getConnection();
 						artifact.setId(SqlStore.addArtifact(con, artifact));
-						if(con != null)
+						if (con != null)
 							con.close();
 						armor = artifact;
 					} catch (SQLException e) {
 						e.printStackTrace();
 					}
-				}
-				else {
+				} else {
 					artifact.setId(armor.getId());
 					armor = artifact;
 				}
 				break;
 			case Weapon:
-				if (weapon == null){
+				if (weapon == null) {
 					try {
 						Connection con = SqlStore.getConnection();
 						artifact.setId(SqlStore.addArtifact(con, artifact));
-						if(con != null)
+						if (con != null)
 							con.close();
 						weapon = artifact;
 					} catch (SQLException e) {
 						e.printStackTrace();
 					}
-				}
-				else {
+				} else {
 					artifact.setId(weapon.getId());
 					weapon = artifact;
 				}
@@ -167,7 +164,7 @@ public abstract class Hero extends Charicter {
 
 		if (armor != null) {
 			damage = damage - armor.getValue();
-			if(damage < 0)
+			if (damage < 0)
 				damage = 0;
 		}
 		if (damage > defense) {

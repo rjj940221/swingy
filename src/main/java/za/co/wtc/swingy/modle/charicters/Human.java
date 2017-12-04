@@ -6,7 +6,7 @@ import za.co.wtc.swingy.modle.artifact.Artifact;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
-public class Human extends Hero{
+public class Human extends Hero {
 	public Human(@NotNull String name,
 	             @Min(0) int level,
 	             @Min(0) long experience,

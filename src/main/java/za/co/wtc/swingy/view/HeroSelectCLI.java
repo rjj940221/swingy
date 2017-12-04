@@ -29,12 +29,11 @@ public class HeroSelectCLI {
 			res = console.readLine("Enter the index of the hero you want to use: ");
 			try {
 				resIdx = Integer.parseInt(res);
-				return heros.get(resIdx - 1);
 			}catch(Exception e){
 				resIdx = -1;
 			}
 		}while(resIdx < 0 || resIdx > heros.size());
-		return null;
+			return heros.get(resIdx - 1);
 	}
 
 
