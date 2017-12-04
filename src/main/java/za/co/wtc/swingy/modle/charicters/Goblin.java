@@ -1,9 +1,12 @@
 package za.co.wtc.swingy.modle.charicters;
 
 import za.co.wtc.swingy.modle.Coordinate;
+import za.co.wtc.swingy.modle.artifact.Artifact;
+import za.co.wtc.swingy.modle.artifact.Helm;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import java.util.Random;
 
 public class Goblin extends Monster {
 	public Goblin(@Min(0) int level,
@@ -13,5 +16,13 @@ public class Goblin extends Monster {
 		attack = level * 10 + 5;
 		defense = level * 10 + 5;
 		hitPoints = 54 * level + 45;
+	}
+
+	@Override
+	public Artifact dropArtifact() {
+		//if (new Random().nextInt(3) == 1) {
+			return new Helm((level + 1) * 2);
+		//}else
+		//	return null;
 	}
 }

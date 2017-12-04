@@ -2,6 +2,7 @@ package za.co.wtc.swingy.store;
 
 import za.co.wtc.swingy.modle.Coordinate;
 import za.co.wtc.swingy.modle.artifact.Artifact;
+import za.co.wtc.swingy.modle.artifact.ArtifactType;
 import za.co.wtc.swingy.modle.artifact.Weapon;
 import za.co.wtc.swingy.modle.charicters.CharacterType;
 import za.co.wtc.swingy.modle.charicters.CharicterFactory;
@@ -34,27 +35,57 @@ public class SqlStore {
 		return null;
 	}
 
-	public static Artifact selectArtifact(Connection con, int artifactID)
-			throws SQLException {
+	public static int addArtifact(Connection con, Artifact artifact) throws SQLException {
+		PreparedStatement stmtArtifact = null;
+		Statement getId = null;
+		String insertHero = "INSERT INTO swingy.ARTIFACT (value, max_value, type) VALUES (?,?,?)";
+		String lastInsert = "SELECT LAST_INSERT_ID() AS id;";
+		try {
+			stmtArtifact = con.prepareStatement(insertHero);
+			stmtArtifact.setInt(1, artifact.getValue());
+			stmtArtifact.setInt(2, artifact.getMaxValue());
+			stmtArtifact.setString(3, artifact.getType().toString());
+			getId = con.createStatement();
+			System.out.println(stmtArtifact.toString());
+			int insert = stmtArtifact.executeUpdate();
+			System.out.println(insert + " row's");
+			ResultSet idRs = getId.executeQuery(lastInsert);
+			if (idRs.next())
+				return idRs.getInt("id");
 
+		} catch (SQLException e) {
+			System.err.println("Data base failure.");
+			e.printStackTrace();
+			System.exit(1);
+		} finally {
+			if (stmtArtifact != null) {
+				stmtArtifact.close();
+			}
+		}
+		return -1;
+	}
+
+	public static Artifact getArtifact(Connection con, int artifactID)
+			throws SQLException {
+		System.out.println("Getting Artifact: " + artifactID);
 		PreparedStatement stmt = null;
-		String query = "SELECT * FROM ARTEFACTS WHERE ID = ?";
+		String query = "SELECT * FROM swingy.ARTIFACT WHERE ID = ?";
 		try {
 			stmt = con.prepareStatement(query);
 			stmt.setInt(1, artifactID);
-			ResultSet rs = stmt.executeQuery(query);
+			ResultSet rs = stmt.executeQuery();
 			if (rs.next()) {
-				String type = "";
-				int value = 0;
-				int max = 0;
-				switch (type) {
-					case "WEAPON":
-						return new Weapon(value, max);
-				}
+				String type = rs.getString("type");
+				int value = rs.getInt("value");
+				int max = rs.getInt("max_value");
+				int id = rs.getInt("id");
+				return new Artifact(ArtifactType.valueOf(type),value, max, id);
 			}
 		} catch (SQLException e) {
 			System.err.println("Data base failure.");
+			e.printStackTrace();
 			System.exit(1);
+
 		} finally {
 			if (stmt != null) {
 				stmt.close();
@@ -63,6 +94,27 @@ public class SqlStore {
 		return null;
 	}
 
+	public static void updateArtifact(Connection con, Artifact artifact) throws SQLException {
+		PreparedStatement stmt = null;
+		String query = "UPDATE swingy.ARTIFACT SET value = ?, max_value = ?, type = ? WHERE id = ?;";
+		try {
+			stmt = con.prepareStatement(query);
+			stmt.setInt(1, artifact.getValue());
+			stmt.setInt(2, artifact.getMaxValue());
+			stmt.setString(3, artifact.getType().toString());
+			stmt.setInt(4, artifact.getId());
+			int rs = stmt.executeUpdate();
+			System.out.println(rs + " rows affected");
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.err.println("Data base failure.");
+			System.exit(1);
+		} finally {
+			if (stmt != null) {
+				stmt.close();
+			}
+		}
+	}
 
 	public static List<Hero> listHerose(Connection con) throws SQLException {
 
@@ -73,6 +125,19 @@ public class SqlStore {
 			stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 			while (rs.next()) {
+				Artifact weapon = null;
+				Artifact armor = null;
+				Artifact helm = null;
+				if (rs.getObject("weapon") != null){
+
+					weapon = getArtifact(con, rs.getInt("weapon"));
+				}
+				if (rs.getObject("armor") != null){
+					armor = getArtifact(con, rs.getInt("armor"));
+				}
+				if (rs.getObject("helm") != null){
+					helm = getArtifact(con, rs.getInt("helm"));
+				}
 				re.add(CharicterFactory.creatHero(CharacterType.valueOf(rs.getString("type")),
 						rs.getString("name"),
 						rs.getInt("level"),
@@ -80,7 +145,7 @@ public class SqlStore {
 						rs.getInt("attack"),
 						rs.getInt("defence"),
 						rs.getInt("hit_points"),
-						null, null, null,
+						weapon, armor, helm,
 						rs.getInt("id")));
 			}
 		} catch (SQLException e) {
@@ -171,16 +236,19 @@ public class SqlStore {
 			stmt.setInt(5, hero.getHitPoints());
 			if (hero.getWeapon() != null) {
 				stmt.setInt(6, hero.getWeapon().getId());
+				updateArtifact(con, hero.getWeapon());
 			} else {
 				stmt.setObject(6, null);
 			}
 			if (hero.getArmor() != null) {
 				stmt.setInt(7, hero.getArmor().getId());
+				updateArtifact(con, hero.getArmor());
 			} else {
 				stmt.setObject(7, null);
 			}
 			if (hero.getHelmet() != null) {
 				stmt.setInt(8, hero.getHelmet().getId());
+				updateArtifact(con, hero.getHelmet());
 			} else {
 				stmt.setObject(8, null);
 			}

@@ -2,9 +2,12 @@ package za.co.wtc.swingy.modle.charicters;
 
 import za.co.wtc.swingy.modle.Coordinate;
 import za.co.wtc.swingy.modle.artifact.Artifact;
+import za.co.wtc.swingy.store.SqlStore;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import java.sql.Connection;
+import java.sql.SQLException;
 
 public abstract class Hero extends Charicter {
 	private Artifact weapon;
@@ -102,16 +105,75 @@ public abstract class Hero extends Charicter {
 		return helmet;
 	}
 
+	public void pickUpArtifact(Artifact artifact){
+		switch (artifact.getType()) {
+			case Helm:
+				if (helmet == null){
+					try {
+						Connection con = SqlStore.getConnection();
+						artifact.setId(SqlStore.addArtifact(con, artifact));
+						if(con != null)
+							con.close();
+						helmet = artifact;
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+				else {
+					artifact.setId(helmet.getId());
+					helmet = artifact;
+				}
+				break;
+			case Armor:
+				if (armor == null){
+					try {
+						Connection con = SqlStore.getConnection();
+						artifact.setId(SqlStore.addArtifact(con, artifact));
+						if(con != null)
+							con.close();
+						armor = artifact;
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+				else {
+					artifact.setId(armor.getId());
+					armor = artifact;
+				}
+				break;
+			case Weapon:
+				if (weapon == null){
+					try {
+						Connection con = SqlStore.getConnection();
+						artifact.setId(SqlStore.addArtifact(con, artifact));
+						if(con != null)
+							con.close();
+						weapon = artifact;
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+				else {
+					artifact.setId(weapon.getId());
+					weapon = artifact;
+				}
+				break;
+		}
+	}
+
 	@Override
 	public boolean takeDamage(int damage) {
 
-		if (armor != null)
-			damage = armor.takeDamage(damage);
+		if (armor != null) {
+			damage = damage - armor.getValue();
+			if(damage < 0)
+				damage = 0;
+		}
 		if (damage > defense) {
 			int deduct = damage - defense;
-			if (helmet != null) {
+			/*if (helmet != null) {
 				deduct = helmet.takeDamage(deduct);
-			}
+			}*/
 			hitPoints = (hitPoints - deduct < 0) ? 0 : hitPoints - deduct;
 			defense = 0;
 		} else

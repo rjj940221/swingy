@@ -80,6 +80,8 @@ public class Launcher {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
+		}else{
+			System.out.println("argument not correctly specified expecting 'gui' or 'console'");
 		}
 
 	}

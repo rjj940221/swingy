@@ -32,17 +32,17 @@ class GameControllerGUI {
 		if (game.canMove()) {
 			this.view.setMoveInteract(true);
 			this.view.setFightInteracta(false);
-		}else {
+		} else {
 			this.view.setMoveInteract(false);
 			this.view.setFightInteracta(true);
 		}
 	}
 
-	private void setBtn(){
+	private void setBtn() {
 		if (game.canMove()) {
 			this.view.setMoveInteract(true);
 			this.view.setFightInteracta(false);
-		}else {
+		} else {
 			this.view.setMoveInteract(false);
 			this.view.setFightInteracta(true);
 			view.displayEnemyStats(game.getOponent());
@@ -74,10 +74,27 @@ class GameControllerGUI {
 	private void fightConclusion(FightState state) {
 		switch (state) {
 			case DEFEAT:
-				view.appendGameLog("You are defeated\n");
+				try {
+					view.setFightInteracta(false);
+					view.setMoveInteract(false);
+					view.displayMenu(true);
+					view.appendGameLog("YOU ARE DEFEATED");
+					Connection con = SqlStore.getConnection();
+					game.setHero(SqlStore.getHero(con, game.getHero().getID()));
+					if (con != null) {
+						con.close();
+					}
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
 				break;
 			case VICTORY:
 				view.appendGameLog("You are victories\n");
+				if (game.canPickUp()) {
+					if (JOptionPane.showConfirmDialog(view, "Opponent dropped an item\n\tType: " + game.getDropped().getType() + "\n\tValue: " + game.getDropped().getValue()) == 0) {
+						game.pickUpArtifact();
+					}
+				}
 				break;
 			case INCOMBAT:
 				view.appendGameLog("You are still fighting\n");
@@ -116,18 +133,7 @@ class GameControllerGUI {
 				view.setFightInteracta(false);
 				view.setMoveInteract(false);
 				view.displayMenu(true);
-			}else if(game.getGameState() == GameState.Defeat){
-				try {
-					Connection con = SqlStore.getConnection();
-					game.setHero(SqlStore.getHero(con, game.getHero().getID()));
-					if (con != null) {
-						con.close();
-					}
-				} catch (SQLException e1) {
-					e1.printStackTrace();
-				}
-			}
-			else if (game.canMove()) {
+			} else if (game.canMove()) {
 				view.setFightInteracta(false);
 				view.appendGameLog("Moved to empty coordinate\n");
 			} else {
@@ -163,6 +169,7 @@ class GameControllerGUI {
 		public void actionPerformed(ActionEvent actionEvent) {
 			startMap();
 			view.displayMenu(false);
+			view.setFocusable(true);
 		}
 	}
 
@@ -181,6 +188,7 @@ class GameControllerGUI {
 			view.setVisible(false);
 			WindowController.getIncetance().getLoadCreateController().displayWindow();
 			view.displayMenu(false);
+			view.setFocusable(true);
 		}
 	}
 

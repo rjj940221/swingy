@@ -1,5 +1,6 @@
 package za.co.wtc.swingy.modle;
 
+import za.co.wtc.swingy.modle.artifact.Artifact;
 import za.co.wtc.swingy.modle.charicters.CharacterType;
 import za.co.wtc.swingy.modle.charicters.CharicterFactory;
 import za.co.wtc.swingy.modle.charicters.Hero;
@@ -14,6 +15,7 @@ public class GameModel {
 	private List<Monster> monsters = new ArrayList<>();
 	private Monster oponent;
 	private int size;
+	private Artifact dropped = null;
 
 	public GameModel(Hero hero) {
 		this.hero = hero;
@@ -22,6 +24,7 @@ public class GameModel {
 
 	public void setLevel(){
 		if (hero != null) {
+			hero.fullHealth();
 			monsters.clear();
 			size = (hero.getLevel() - 1) * 5 + 10 - (hero.getLevel() % 2);
 			System.out.println("size: " + size);
@@ -50,6 +53,21 @@ public class GameModel {
 		return oponent;
 	}
 
+	public boolean canPickUp()
+	{
+		return dropped != null;
+	}
+
+	public void pickUpArtifact() {
+		if (dropped != null){
+			hero.pickUpArtifact(dropped);
+		}
+	}
+
+	public Artifact getDropped() {
+		return dropped;
+	}
+
 	public boolean canMove() {
 		for (Monster monster : monsters) {
 			if (hero.getCoordinate().equals(monster.getCoordinate())) {
@@ -68,6 +86,7 @@ public class GameModel {
 
 	public void moveHero(Direction direction) {
 		hero.move(direction);
+		dropped = null;
 	}
 
 	public Boolean flee() {
@@ -92,6 +111,10 @@ public class GameModel {
 				long exp = 20 * (oponent.getLevel() + 1);
 				if (oponent.getLevel() > hero.getLevel())
 					exp += (oponent.getLevel() - hero.getLevel()) * 80;
+				if(oponent.getLevel() >= hero.getLevel())
+				{
+					dropped = oponent.dropArtifact();
+				}
 				//System.out.println("Fight exp: " + exp);
 				hero.increaseEXP(exp);
 				monsters.remove(oponent);

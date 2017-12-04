@@ -1,6 +1,7 @@
 package za.co.wtc.swingy.modle.charicters;
 
 import za.co.wtc.swingy.modle.Coordinate;
+import za.co.wtc.swingy.modle.artifact.Artifact;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -27,4 +28,6 @@ public abstract class Monster extends Charicter {
 	               @NotNull Coordinate coordinate) {
 		super(names[(int) (Math.random() * names.length)], type, level, experience, attack, defense, hitPoints, coordinate);
 	}
+
+	public abstract Artifact dropArtifact();
 }

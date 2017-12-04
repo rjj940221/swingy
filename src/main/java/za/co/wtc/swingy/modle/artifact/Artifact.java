@@ -3,7 +3,7 @@ package za.co.wtc.swingy.modle.artifact;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
-public abstract class Artifact {
+public class Artifact {
     @NotNull
     private ArtifactType type;
     @Min(0)
@@ -24,12 +24,23 @@ public abstract class Artifact {
         this.maxValue = maxValue;
     }
 
+    public Artifact(@NotNull ArtifactType type, @Min(0) int value, @Min(0) int maxValue, int id) {
+        this.type = type;
+        this.value = value;
+        this.maxValue = maxValue;
+        this.id = id;
+    }
+
     public ArtifactType getType() {
         return type;
     }
 
     public int getValue() {
         return value;
+    }
+
+    public int getMaxValue() {
+        return maxValue;
     }
 
     public int takeDamage(int damage){

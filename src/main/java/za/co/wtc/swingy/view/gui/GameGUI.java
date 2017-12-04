@@ -29,7 +29,7 @@ public class GameGUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        dlgMenu = new javax.swing.JDialog();
+        dlgMenu = new javax.swing.JDialog(this, true);
         btnNext = new javax.swing.JButton();
         btnCLI = new javax.swing.JButton();
         btnQuit = new javax.swing.JButton();
@@ -434,6 +434,7 @@ public class GameGUI extends javax.swing.JFrame {
 	}
 
 	public void displayMenu(boolean state){
+		this.setFocusable(false);
 		dlgMenu.setVisible(state);
 	}
 
