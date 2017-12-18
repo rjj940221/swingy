@@ -48,6 +48,7 @@ public class Launcher {
 
 		} catch (SQLException e) {
 			System.err.println("Database crash");
+			System.exit(1);
 		}
 	}
 
@@ -82,9 +83,11 @@ public class Launcher {
 				while (true) {
 					if (!WindowController.getIncetance().isGui()) {
 						WindowController.getIncetance().getGameControllerCLI().displayMenu();
+					}else {
+						Thread.sleep(10);
 					}
 				}
-			} catch (SQLException e) {
+			} catch (SQLException | InterruptedException e) {
 				e.printStackTrace();
 			}
 		} else {

@@ -44,7 +44,6 @@ class GameControllerGUI {
 		view.displayEnemyStats(null);
 		view.setVisible(true);
 		view.displayMenu(true);
-		System.out.println("display menu done");
 	}
 
 	private void setBtn() {
@@ -177,7 +176,6 @@ class GameControllerGUI {
 
 		@Override
 		public void actionPerformed(ActionEvent actionEvent) {
-			System.out.println("Got next map event");
 			startMap();
 			view.displayMenu(false);
 		}

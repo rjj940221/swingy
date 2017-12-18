@@ -190,19 +190,16 @@ public abstract class Hero extends Charicter {
 	@Override
 	public String toString() {
 		return "Hero{" +
-				"weapon=" + weapon +
-				", armor=" + armor +
-				", helmet=" + helmet +
-				", id=" + id +
-				", name='" + name + '\'' +
-				", type=" + type +
-				", level=" + level +
-				", experience=" + experience +
-				", attack=" + attack +
-				", defense=" + defense +
-				", hitPoints=" + hitPoints +
-				", coordinate=" + coordinate +
-				", direction=" + direction +
-				'}';
+				"\n\tname='" + name + '\'' +
+				"\n\ttype=" + type +
+				"\n\tlevel=" + level +
+				"\n\texperience=" + experience +
+				"\n\tattack=" + attack +
+				"\n\tdefense=" + defense +
+				"\n\thitPoints=" + hitPoints +
+				"\n\tweapon=" + weapon +
+				"\n\tarmor=" + armor +
+				"\n\thelmet=" + helmet +
+				"\n}";
 	}
 }

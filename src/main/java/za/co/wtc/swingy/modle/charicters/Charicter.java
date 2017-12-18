@@ -111,15 +111,15 @@ public abstract class Charicter {
 
 	@Override
 	public String toString() {
-		return "{name='" + name + '\'' +
-				       ", type='" + type + '\'' +
-				       ", level=" + level +
-				       ", experience=" + experience +
-				       ", attack=" + attack +
-				       ", defense=" + defense +
-				       ", hitPoints=" + hitPoints +
-				       ", coordinate=" + coordinate +
-				       ", direction=" + direction +
-				       '}';
+		return "{\n\tname: '" + name + '\'' +
+				       "\n\ttype='" + type + '\'' +
+				       "\n\tlevel=" + level +
+				       "\n\texperience=" + experience +
+				       "\n\tattack=" + attack +
+				       "\n\tdefense=" + defense +
+				       "\n\thitPoints=" + hitPoints +
+				       "\n\tcoordinate=" + coordinate +
+				       "\n\tdirection=" + direction +
+				       "\n}";
 	}
 }

@@ -52,7 +52,6 @@ public class WindowController {
 
 	public void setGui(boolean gui) {
 		this.gui = gui;
-		System.out.println("Set gui mode to: "+ gui);
 	}
 
 	public LoadCreateControllerCLI getLoadCreateControllerCLI() {

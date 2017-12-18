@@ -18,17 +18,20 @@ import java.util.Properties;
 
 public class SqlStore {
 	private static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-	private static final String DB_URL = "jdbc:mysql://localhost/swingy";
+	private static final String DB_URL = "jdbc:mysql://localhost/swingy?useSSL=false";
 
 	private static final String USER = "java";
 	private static final String PASS = "javaPass";
 
 	public static Connection getConnection() throws SQLException {
 		try {
-			Class.forName(JDBC_DRIVER);
+			Class.forName(JDBC_DRIVER).newInstance();
+			Properties prop = new Properties();
 			Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
 			return conn;
-		} catch (ClassNotFoundException e) {
+		} catch (ClassNotFoundException | InstantiationException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
 			e.printStackTrace();
 		}
 		return null;

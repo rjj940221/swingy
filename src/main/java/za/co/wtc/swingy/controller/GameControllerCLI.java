@@ -30,10 +30,7 @@ public class GameControllerCLI {
 				runGame();
 				break;
 			case 1:
-				System.out.println("CLI Call to gamecntrlGUIdisplay");
-
 				WindowController.getIncetance().getGameControllerGUI().displayMenu();
-				System.out.println("CLI Call to gamecntrlGUIdisplay returned");
 				break;
 			case 2:
 				try {
@@ -71,7 +68,6 @@ public class GameControllerCLI {
 
 
 		}
-		System.out.println("CLI menu ended");
 	}
 
 
