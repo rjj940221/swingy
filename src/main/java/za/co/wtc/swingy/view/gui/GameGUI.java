@@ -5,10 +5,8 @@
  */
 package za.co.wtc.swingy.view.gui;
 
-import za.co.wtc.swingy.modle.Direction;
 import za.co.wtc.swingy.modle.charicters.Hero;
 import za.co.wtc.swingy.modle.charicters.Monster;
-
 import javax.swing.text.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -434,14 +432,9 @@ public class GameGUI extends javax.swing.JFrame {
 	}
 
 	public void appendGameLog(String text){
-		//txaGameLog.append(text);
-
 		try {
 			StyledDocument doc = txaGameLog.getStyledDocument();
 			doc.insertString(doc.getLength(), text,doc.getStyle("plain"));
-			/*txaGameLog.setCaretPosition(doc.getLength());
-			txaGameLog.setCharacterAttributes(aset, false);
-			txaGameLog.replaceSelection(text);*/
 
 		} catch (BadLocationException e) {
 			e.printStackTrace();
@@ -453,9 +446,6 @@ public class GameGUI extends javax.swing.JFrame {
 		try {
 			StyledDocument doc = txaGameLog.getStyledDocument();
 			doc.insertString(doc.getLength(), text,doc.getStyle(nm));
-			/*txaGameLog.setCaretPosition(doc.getLength());
-			txaGameLog.setCharacterAttributes(aset, false);
-			txaGameLog.replaceSelection(text);*/
 
 		} catch (BadLocationException e) {
 			e.printStackTrace();
