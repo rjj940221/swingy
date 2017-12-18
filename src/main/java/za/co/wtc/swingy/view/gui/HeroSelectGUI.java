@@ -52,7 +52,7 @@ public class HeroSelectGUI extends javax.swing.JFrame {
 		jLabel11 = new javax.swing.JLabel();
 		txfHelm = new javax.swing.JTextField();
 
-		setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
 		jScrollPane1.setViewportView(lstHeroes);
 
