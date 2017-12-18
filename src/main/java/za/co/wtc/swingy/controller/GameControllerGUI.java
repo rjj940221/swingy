@@ -119,6 +119,10 @@ class GameControllerGUI {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			fightConclusion(game.fight());
+			if (game.getOponent() != null) {
+				view.appendGameLog(game.getHero().getName() + " dealt " + game.getOponent().getLastDamage() + "\n", "green");
+				view.appendGameLog(game.getOponent().getName() + " dealt " + game.getHero().getLastDamage() + "\n", "red");
+			}
 		}
 	}
 

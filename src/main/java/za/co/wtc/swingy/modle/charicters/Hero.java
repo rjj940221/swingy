@@ -171,10 +171,13 @@ public abstract class Hero extends Charicter {
 			/*if (helmet != null) {
 				deduct = helmet.takeDamage(deduct);
 			}*/
+			this.damageTaken = deduct;
 			hitPoints = (hitPoints - deduct < 0) ? 0 : hitPoints - deduct;
 			defense = 0;
-		} else
+		} else {
 			defense -= damage;
+			this.damageTaken = 0;
+		}
 		return hitPoints != 0;
 	}
 

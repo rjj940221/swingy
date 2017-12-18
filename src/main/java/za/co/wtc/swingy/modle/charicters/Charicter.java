@@ -25,6 +25,7 @@ public abstract class Charicter {
 	protected Coordinate coordinate;
 	@NotNull
 	protected Direction direction;
+	protected int damageTaken;
 
 	public String getName() {
 		return name;
@@ -74,10 +75,13 @@ public abstract class Charicter {
 	public boolean takeDamage(int damage) {
 		if (damage > defense) {
 			int deduct = damage - defense;
+			this.damageTaken = deduct;
 			hitPoints = (hitPoints - deduct < 0) ? 0 : hitPoints - deduct;
 			defense = 0;
-		} else
+		} else {
+			this.damageTaken = 0;
 			defense -= damage;
+		}
 		return hitPoints != 0;
 	}
 
@@ -95,6 +99,7 @@ public abstract class Charicter {
 		this.hitPoints = hitPoints;
 		this.coordinate = coordinate;
 		this.direction = Direction.North;
+		damageTaken = 0;
 	}
 
 	public Charicter(@NotNull String name, @NotNull CharacterType type) {
@@ -107,6 +112,11 @@ public abstract class Charicter {
 		this.hitPoints = 0;
 		this.coordinate = new Coordinate(0,0);
 		this.direction = Direction.North;
+		damageTaken = 0;
+	}
+
+	public int getLastDamage(){
+		return damageTaken;
 	}
 
 	@Override

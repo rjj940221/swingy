@@ -9,6 +9,8 @@ import za.co.wtc.swingy.modle.Direction;
 import za.co.wtc.swingy.modle.charicters.Hero;
 import za.co.wtc.swingy.modle.charicters.Monster;
 
+import javax.swing.text.*;
+import java.awt.*;
 import java.awt.event.ActionListener;
 
 /**
@@ -67,7 +69,7 @@ public class GameGUI extends javax.swing.JFrame {
         txfHelm = new javax.swing.JTextField();
         pnlGameLog = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        txaGameLog = new javax.swing.JTextArea();
+        txaGameLog = new javax.swing.JTextPane();
         pnlEnemyStats = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
         txfEnName = new javax.swing.JTextField();
@@ -83,6 +85,12 @@ public class GameGUI extends javax.swing.JFrame {
         txfEnDefence = new javax.swing.JTextField();
         jLabel18 = new javax.swing.JLabel();
         txfEnHitPoints = new javax.swing.JTextField();
+		Style stylePlain = txaGameLog.addStyle("plain", null);
+		StyleConstants.setForeground(stylePlain, Color.black);
+		Style styleRed = txaGameLog.addStyle("red", null);
+		StyleConstants.setForeground(styleRed, Color.red);
+		Style styleGreen = txaGameLog.addStyle("green", null);
+		StyleConstants.setForeground(styleGreen, Color.green);
 
         dlgMenu.setTitle("Menu");
         dlgMenu.setMaximumSize(new java.awt.Dimension(193, 215));
@@ -244,8 +252,8 @@ public class GameGUI extends javax.swing.JFrame {
         pnlComponents.add(pnlHeroStats);
 
         txaGameLog.setEditable(false);
-        txaGameLog.setColumns(20);
-        txaGameLog.setRows(5);
+       // txaGameLog.setColumns(20);
+       // txaGameLog.setRows(5);
         jScrollPane1.setViewportView(txaGameLog);
 
         javax.swing.GroupLayout pnlGameLogLayout = new javax.swing.GroupLayout(pnlGameLog);
@@ -426,7 +434,32 @@ public class GameGUI extends javax.swing.JFrame {
 	}
 
 	public void appendGameLog(String text){
-		txaGameLog.append(text);
+		//txaGameLog.append(text);
+
+		try {
+			StyledDocument doc = txaGameLog.getStyledDocument();
+			doc.insertString(doc.getLength(), text,doc.getStyle("plain"));
+			/*txaGameLog.setCaretPosition(doc.getLength());
+			txaGameLog.setCharacterAttributes(aset, false);
+			txaGameLog.replaceSelection(text);*/
+
+		} catch (BadLocationException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	public void appendGameLog(String text, String nm){
+		try {
+			StyledDocument doc = txaGameLog.getStyledDocument();
+			doc.insertString(doc.getLength(), text,doc.getStyle(nm));
+			/*txaGameLog.setCaretPosition(doc.getLength());
+			txaGameLog.setCharacterAttributes(aset, false);
+			txaGameLog.replaceSelection(text);*/
+
+		} catch (BadLocationException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void setGameLog(String text){
@@ -475,7 +508,7 @@ public class GameGUI extends javax.swing.JFrame {
     private javax.swing.JPanel pnlGameLog;
     private javax.swing.JPanel pnlHeroStats;
     private javax.swing.JPanel pnlLables;
-    private javax.swing.JTextArea txaGameLog;
+    private javax.swing.JTextPane txaGameLog;
     private javax.swing.JTextField txfArmor;
     private javax.swing.JTextField txfAttack;
     private javax.swing.JTextField txfClass;

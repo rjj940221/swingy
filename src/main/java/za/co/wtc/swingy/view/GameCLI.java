@@ -64,11 +64,14 @@ public class GameCLI {
 
 	public void fightResult(Hero hero, Monster monster) {
 		console.printf("FIGHT RESULT:\n");
-		console.printf("\tHero {Name: %s, Defence: %d, Hit Points: %d}\n",
-				hero.getName(), hero.getDefense(), hero.getHitPoints());
 		if (monster != null) {
-			console.printf("\tOpponent {Name: %s, Defence: %d, Hit Points: %d}\n",
-					monster.getName(), monster.getDefense(), monster.getHitPoints());
+			console.printf("\033[33m\tHero {Name: %s, Defence: %d, Hit Points: %d} dealt %d damage \n",
+					hero.getName(), hero.getDefense(), hero.getHitPoints(), monster.getLastDamage());
+			console.printf("\033[31m\tOpponent {Name: %s, Defence: %d, Hit Points: %d} dealt %d damage \n\033[0m",
+					monster.getName(), monster.getDefense(), monster.getHitPoints(), hero.getLastDamage());
+		}else
+		{
+			console.printf("\t %s is victorious\n", hero.getName());
 		}
 	}
 
