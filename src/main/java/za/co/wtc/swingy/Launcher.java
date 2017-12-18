@@ -79,6 +79,9 @@ public class Launcher {
 					cli();
 				} else if (args[0].equalsIgnoreCase("gui")) {
 					gui();
+				}else{
+					System.out.println("arg [" + args[0]+"] not recognised expecting 'gui' or 'console'");
+					System.exit(1);
 				}
 				while (true) {
 					if (!WindowController.getIncetance().isGui()) {
