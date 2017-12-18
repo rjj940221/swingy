@@ -1,0 +1,28 @@
+CREATE DATABASE IF NOT EXISTS swingy;
+
+CREATE TABLE  IF NOT EXISTS ARTIFACT (
+  id INT NOT NULL AUTO_INCREMENT ,
+  value SMALLINT UNSIGNED ZEROFILL,
+  max_value SMALLINT UNSIGNED ZEROFILL,
+  type ENUM ( 'Weapon', 'Armor', 'Helm'),
+  PRIMARY KEY (id));
+
+CREATE TABLE  IF NOT EXISTS HEROS (
+  id INT NOT NULL AUTO_INCREMENT,
+  name VARCHAR(100),
+  type VARCHAR(100),
+  level SMALLINT UNSIGNED DEFAULT 0,
+  experience BIGINT UNSIGNED DEFAULT 0,
+  attack SMALLINT UNSIGNED DEFAULT 0,
+  defence SMALLINT UNSIGNED DEFAULT 0,
+  hit_points SMALLINT UNSIGNED DEFAULT 0,
+  weapon INT,
+  armor INT,
+  helm INT,
+  PRIMARY KEY (id),
+  FOREIGN KEY (weapon) REFERENCES ARTIFACT(id),
+  FOREIGN KEY (armor) REFERENCES ARTIFACT(id),
+  FOREIGN KEY (helm) REFERENCES ARTIFACT(id)
+);
+
+INSERT INTO swingy.HEROS (name, type,level, experience, attack, defence, hit_points, weapon, armor, helm) VALUES ('Henery', 'HUMAN',0 , 100, 10, 10, 50, null, null, null);
